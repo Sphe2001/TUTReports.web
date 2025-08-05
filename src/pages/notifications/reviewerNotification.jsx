@@ -9,7 +9,7 @@ const NotificationPage = () => {
   const navigate = useNavigate();
   const [userRole, setUserRole] = useState(null);
   const [filter, setFilter] = useState("all");
-  let searchTerm;
+  const [searchTerm, setSearchTerm] = useState("");
   const [notifications, setNotifications] = useState([]);
 
   const fetchUserRole = useCallback(async () => {
@@ -71,6 +71,7 @@ const NotificationPage = () => {
     }
   }, [API_ENDPOINT]);
   useEffect(() => {
+    setSearchTerm("");
     fetchUserRole();
     fetchNotificationsFromAPI();
   }, [fetchUserRole, fetchNotificationsFromAPI]);
