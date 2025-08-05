@@ -1,0 +1,162 @@
+.view-report-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.view-report-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.view-report-main {
+  flex: 1;
+  padding: 1rem 2rem;
+  overflow-y: auto;
+}
+
+.view-report-report-header {
+  margin-bottom: 2rem;
+}
+
+.view-report-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--header-color);
+}
+
+.view-lecturer-report-description {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--sub-header-color);
+}
+
+.view-report-status-box {
+  width: 78%;
+  border-radius: 6px;
+  text-align: center;
+  overflow: hidden;
+  padding: 1px 5px 6px 5px;
+  height: 28%;
+  font-size: small;
+}
+
+.view-report-report-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  color: var(--label-color);
+}
+
+.view-lecturer-report-info-card {
+  background-color: var(--primary-color);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+}
+
+.view-lecturer-report-info-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.view-lecturer-report-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.view-lecturer-report-card-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.view-lecturer-report-card-content {
+  font-size: 0.95rem;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.view-lecturer-report-activity-item {
+  border-bottom: 1px solid #eee;
+  padding: 0.5rem 0;
+}
+
+.view-lecturer-report-activity-item:last-child {
+  border-bottom: none;
+}
+
+.view-lecturer-report-sessions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.view-lecturer-report-session-card {
+  background-color: var(--primary-color);
+  padding: 0.75rem;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  color: var(--label-color);
+}
+
+.view-lecturer-report-session-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.view-lecturer-report-session-header h3 {
+  margin: 0;
+}
+
+.view-lecturer-report-date {
+  font-size: 0.85rem;
+  color: var(--label-color);
+}
+
+.view-lecturer-report-session-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  color: var(--label-color);
+}
+.view-lecturer-report-feedback-review-card {
+  background-color: var(--primary-color);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+  grid-column: 1 / -1;
+}
+
+.view-lecturer-report-feedback-review-card .card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.view-lecturer-report-feedback-review-card .card-header h2 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.view-lecturer-report-feedback-review-card .card-content {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+/* Responsive handling */
+@media (max-width: 1024px) {
+  .view-report-feedback-review-card {
+    grid-column: 1 / 2;
+  }
+}

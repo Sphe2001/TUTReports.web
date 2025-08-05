@@ -1,0 +1,213 @@
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--accent-color);
+  background-color: var(--primary-color);
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar-main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+.sidebar-header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--accent-color);
+  padding: 0 24px;
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 16px 8px;
+}
+
+.sidebar-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin: 4px 0;
+  font-size: var(--sub-header-font-size);
+  font-weight: var(--sub-header-font-weight);
+  color: var(--disabled-text-color);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.sidebar-link:hover {
+  background-color: var(--hover-side-bar-link-background-color);
+}
+
+.sidebar-link.active {
+  background-color: var(--active-side-bar-link-background-color);
+  color: var(--active-text-color);
+}
+
+.sidebar-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 12px;
+  color: var(--disabled-icon-color);
+}
+
+.sidebar-link:hover .sidebar-icon {
+  color: var(--hover-icon-color);
+}
+
+.sidebar-link.active .sidebar-icon {
+  color: var(--active-icon-color);
+}
+
+.sidebar-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: #3b82f6;
+  border-top-right-radius: 9999px;
+  border-bottom-right-radius: 9999px;
+}
+
+.sidebar-footer {
+  border-top: 1px solid var(--accent-color);
+  padding: 16px;
+}
+
+.sidebar-actions {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.admin-action-link {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: var(--disabled-text-color);
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.admin-action-link:hover {
+  background-color: var(--hover-side-bar-link-background-color);
+}
+
+.admin-action-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  color: var(--disabled-icon-color);
+}
+
+.sidebar-dropdown {
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--side-bar-link-background-color);
+}
+
+.sidebar-sublink {
+  padding: 0.5rem 1rem;
+  color: var(--disabled-text-color);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.sidebar-sublink:hover {
+  color: var(--hover-text-color);
+  font-weight: var(--text-font-weight);
+}
+.sidebar-sublink.active {
+  color: var(--active-text-color);
+  font-weight: var(--text-font-weight);
+}
+
+.admin-icon {
+  margin-right: 12px;
+  width: 20px;
+  height: 20px;
+}
+
+.admin-dropdown-links {
+  margin-left: 20px;
+  padding-left: 10px;
+  /* border-left: 3px solid #3b82f6; */
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-dropdown-link-item {
+  display: flex;
+  align-items: center;
+  color: var(--disabled-text-color);
+  text-decoration: none;
+  padding: 8px 12px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: background-color 0.2s ease;
+  border-radius: 4px;
+}
+
+.admin-dropdown-link-item:hover {
+  background-color: var(--hover-side-bar-link-background-color);
+  color: var(--hover-text-color);
+}
+
+.admin-dropdown-icon {
+  margin-right: 10px;
+  width: 18px;
+  height: 18px;
+}
+
+.admin-dropdown-link-item.active-blue {
+  background-color: var(--active-side-bar-link-background-color);
+  border-bottom: 2px solid var(--side-bar-link-border-color);
+  color: var(--active-text-color);
+}
+
+/* .support-link {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #374151;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+
+.action-link:hover {
+  background-color: #f3f4f6;
+}
+
+.action-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  color: #9ca3af;
+}
+
+.support-text {
+  font-size: 1.1rem;
+} */

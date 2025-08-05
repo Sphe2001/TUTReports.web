@@ -1,0 +1,388 @@
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+}
+
+.notifications-container {
+  min-height: 100vh;
+  background-color: var(--primary-color);
+  padding: 2rem 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 18px;
+}
+
+/* Header Styles */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.badge {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  background-color: var(--remove-button-color);
+  color: var(--button-text-color);
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 50%;
+  width: 1.25rem;
+  height: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-text h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--header-color);
+  margin: 0 0 0.25rem 0;
+}
+
+.subtitle {
+  color: var(--text-color);
+  margin: 0;
+  font-size: 0.875rem;
+}
+
+.header-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Filter Section */
+.filters {
+  margin-bottom: 1.5rem;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.filter-icon {
+  width: 1rem;
+  height: 1rem;
+  color: var(--disabled-icon-color);
+}
+
+.filter-label {
+  font-size: 0.875rem;
+  color: var(--label-color);
+  margin-right: 0.5rem;
+}
+
+.filter-btn {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-color: var(--accent-color);
+  color: var(--text-color);
+}
+
+.filter-btn:hover {
+  background-color: var(--hover-secondary-button-color);
+}
+
+.filter-btn.active {
+  background-color: var(--primary-button-color);
+  color: var(--button-text-color);
+}
+
+/* Notification List */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.notification-item {
+  position: relative;
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--accent-color);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: var(--secondary-color);
+}
+
+/* Unread styling */
+.notification-item.unread {
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, var(--secondary-color) 100%);
+  border-left: 4px solid var(--primary-button-color);
+}
+
+.notification-item.unread .notification-card {
+  font-weight: bold;
+  color: var(--header-color);
+}
+
+/* Read styling */
+.notification-item.read {
+  opacity: 0.85;
+}
+
+.notification-item.read .notification-card {
+  font-weight: normal;
+  color: var(--text-color);
+}
+
+/* Disable hover background effect */
+.notification-item:hover {
+  background: var(--hover-secondary-button-color);
+  transform: translateX(5px);
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+/* Unread dot */
+.unread-dot {
+  height: 10px;
+  width: 10px;
+  background-color: var(--primary-button-color);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+/* Notification Card */
+.notification-card {
+  background: var(--primary-color);
+  border-radius: 0.5rem;
+  box-shadow: var(--box-shadow);
+  padding: 4px;
+  margin-left: 6px;
+  transition: all 0.2s ease;
+}
+
+.notification-card:hover {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+/* Delete icon */
+.action-icon.delete {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: var(--remove-button-color);
+  cursor: pointer;
+  z-index: 1;
+  transition: color 0.2s ease;
+}
+
+.action-icon.delete:hover {
+  color: var(--hover-remove-button-color);
+  transform: scale(1.1);
+}
+
+/* Meta Info */
+.notification-meta {
+  font-size: 12px;
+  color: var(--disabled-text-color);
+  margin-top: 8px;
+}
+
+/* No Notifications Placeholder */
+.no-notifications {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+.no-notifications::before {
+  content: "📭";
+  display: block;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* Back Button */
+.back-btn {
+  width: 100%;
+  background: var(--accent-color);
+  color: var(--label-color);
+  border: none;
+  padding: 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-top: 1px solid var(--accent-color);
+}
+
+.back-btn:hover {
+  background: var(--hover-secondary-button-color);
+  color: var(--header-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .notifications-container {
+    padding: 1rem 0;
+  }
+  .notification-item {
+    padding: 1rem;
+  }
+  .notification-message {
+    font-size: 0.875rem;
+  }
+  .notification-meta {
+    font-size: 0.8125rem;
+  }
+}
+
+/* Loading state */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  color: var(--text-color);
+}
+
+.loading::before {
+  content: '';
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--accent-color);
+  border-top: 2px solid var(--primary-button-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-right: 0.75rem;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Toast messages */
+.toast-success {
+  background: #10b981;
+  color: white;
+}
+
+.toast-error {
+  background: var(--remove-button-color);
+  color: white;
+}
+
+/* SweetAlert Custom Styles */
+.message-details-popup {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+.reply-send-button {
+  background-color: var(--primary-button-color) !important;
+  border-color: var(--primary-button-color) !important;
+  font-weight: 600 !important;
+  padding: 12px 24px !important;
+}
+
+.reply-send-button:hover {
+  background-color: var(--hover-primary-button-color) !important;
+  border-color: var(--hover-primary-button-color) !important;
+}
+
+.reply-cancel-button {
+  background-color: var(--disabled-button-color) !important;
+  border-color: var(--disabled-button-color) !important;
+  font-weight: 600 !important;
+  padding: 12px 24px !important;
+}
+
+.reply-cancel-button:hover {
+  background-color: var(--hover-secondary-button-color) !important;
+  border-color: var(--hover-secondary-button-color) !important;
+}
+
+/* Message Details */
+.message-details {
+  text-align: left;
+  font-family: Arial, sans-serif;
+}
+
+.detail-section {
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: var(--accent-color);
+  border-radius: 5px;
+  border-left: 3px solid var(--primary-button-color);
+}
+
+.detail-section h4 {
+  margin: 0 0 8px 0;
+  color: var(--header-color);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.detail-section p {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 14px;
+}
+
+.message-content {
+  background-color: var(--primary-color);
+  padding: 15px;
+  border-radius: 5px;
+  border: 1px solid var(--accent-color);
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.message-content p {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 14px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  text-align: left;
+}
+
+.reply-section {
+  margin-bottom: 15px;
+}
+
+.reply-section h4 {
+  margin: 0 0 8px 0;
+  color: var(--header-color);
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.reply-textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 10px;
+  border: 2px solid var(--accent-color);
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  resize: vertical;
+  background: var(--secondary-color);
+  color: var(--text-color);
+}
+
+.reply-textarea:focus {
+  border-color: var(--input-border-color);
+  outline: none;
+}

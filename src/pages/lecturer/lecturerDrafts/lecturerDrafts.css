@@ -1,0 +1,96 @@
+/* Ensure html and body cover the full height */
+
+/* Root app container fills the viewport */
+#root {
+  min-height: 100vh;
+  background-color: #fcfcfc;
+}
+
+/* Lecturer page styling */
+.lecturer-drafts-page {
+  display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Drafts list container (vertical list) */
+.saved-drafts-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Draft card styling */
+.draft-card {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  padding: 16px 20px;
+  background-color: #ffffff;
+  box-shadow: none;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Title */
+.draft-title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 8px 0;
+}
+
+/* Date range with calendar */
+.draft-date-range {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: #6b7280;
+  margin-top: 8px; /* added margin-top */
+  margin-bottom: 12px;
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+/* Grey calendar icon */
+.calendar-icon {
+  color: #6b7280;
+}
+
+.draft-description {
+  font-size: 14px;
+  color: #4b5563;
+  margin-bottom: 0.25rem;
+  min-height: 40px;
+}
+
+.draft-created {
+  font-size: 13px;
+  margin-top: 0.25rem;
+  padding-top: 10px;
+  border-top: 1px solid #e5e7eb;
+}
+
+/* Edit icon button */
+.card-buttons {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+}
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.icon-btn:hover {
+  color: #111827;
+}

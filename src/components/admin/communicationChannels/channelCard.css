@@ -1,0 +1,98 @@
+.channel-card {
+  background-color: var(--primary-color);
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--accent-color);
+}
+
+.channel-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.channel-card-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.channel-card-icon {
+  height: 2rem;
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  color: #780476;
+}
+
+.channel-card-details {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+}
+.message-users-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.channel-card-details strong {
+  color: var(--label-color);
+}
+.channel-card-info-text {
+  height: 10vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+}
+.channel-card-info-text span {
+  font-size: var(--header-font-size);
+  font-weight: var(--header-font-weight);
+  color: var(--header-color);
+}
+.channel-card-info-text p {
+  font-size: var(--sub-header-font-size);
+  margin: 0;
+}
+.channel-card-icon-box {
+  height: 100%;
+  background-color: #fad1f6;
+  padding: 10px;
+  border-radius: 10px;
+}
+.channel-card-action-buttons {
+  display: flex;
+}
+.channel-card-action-buttons button {
+  background: none;
+  border: none;
+}
+.card-action-icon-edit {
+  color: rgb(127, 127, 255);
+}
+.card-action-icon-delete {
+  color: rgb(253, 124, 124);
+}
+
+.card-messages-container {
+  font-size: var(--header-font-size);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.card-messages-container span {
+  color: var(--text-color);
+}
+
+.card-messages-container strong {
+  font-size: var(--header-font-size);
+  color: var(--label-color)
+}

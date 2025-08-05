@@ -1,0 +1,276 @@
+/* editDraft.css */
+
+.edit-draft-container {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 25px 30px;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border-radius: 8px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+.edit-draft-container h2 {
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-align: center;
+  color: #222;
+}
+
+.edit-draft-container label {
+  display: block;
+  margin: 15px 0 6px 0;
+  font-weight: 600;
+  font-size: 1rem;
+  color: #444;
+}
+
+.edit-draft-container input[type="text"],
+.edit-draft-container input[type="number"],
+.edit-draft-container input[type="date"],
+.edit-draft-container textarea {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1.8px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.edit-draft-container input[type="text"]:focus,
+.edit-draft-container input[type="number"]:focus,
+.edit-draft-container input[type="date"]:focus,
+.edit-draft-container textarea:focus {
+  border-color: #0078d4;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 120, 212, 0.4);
+}
+
+.read-only-input {
+  background-color: #f5f5f5;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.channel-activity-row,
+.session-row {
+  border: 1px solid #ddd;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  background-color: #fafafa;
+}
+
+.channel-activity-row label,
+.session-row label {
+  font-weight: 600;
+  margin-top: 8px;
+  display: block;
+}
+
+.channel-activity-row input[type="text"],
+.channel-activity-row textarea,
+.session-row input[type="number"],
+.session-row input[type="date"] {
+  margin-top: 6px;
+}
+
+.session-row {
+  position: relative;
+}
+
+.remove-session-button {
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  background: #e74c3c;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  font-size: 0.85rem;
+}
+
+.remove-session-button:hover {
+  background: #c0392b;
+}
+
+.add-session-button {
+  display: inline-block;
+  margin: 15px 0 30px 0;
+  padding: 12px 25px;
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-session-button:hover {
+  background-color: #007bff;
+}
+
+input[type="file"] {
+  margin-top: 10px;
+  font-size: 0.95rem;
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.save-button,
+.submit-button,
+.delete-button {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 7px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  min-width: 140px;
+}
+
+.save-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.save-button:hover {
+  background-color: #0056b3;
+}
+
+.submit-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.submit-button:hover {
+  background-color: #1e7e34;
+}
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-button:hover {
+  background-color: #a71d2a;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .edit-draft-container {
+    padding: 20px 15px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .save-button,
+  .submit-button,
+  .delete-button {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .remove-session-button {
+    position: static;
+    margin-top: 10px;
+    width: 100%;
+  }
+}
+
+/* Modal styles for centered delete confirmation */
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.modal-box {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.modal-buttons {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.confirm-btn {
+  background-color: #d9534f;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.confirm-btn:hover {
+  background-color: #c9302c;
+}
+
+.cancel-btn {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 0.5rem 1.2rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.cancel-btn:hover {
+  background-color: #5a6268;
+}
+
+/* Style for select inputs (e.g. group dropdown) */
+.edit-draft-container select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border: 1.8px solid #ccc;
+  border-radius: 5px;
+  transition: border-color 0.3s ease;
+  box-sizing: border-box;
+  background-color: white;
+}
+
+.edit-draft-container select:focus {
+  border-color: #0078d4;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 120, 212, 0.4);
+}

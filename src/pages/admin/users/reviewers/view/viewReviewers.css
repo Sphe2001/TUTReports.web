@@ -1,0 +1,80 @@
+.view-reviewers-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+}
+
+.view-reviewers-header-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0px;
+}
+.view-reviewers-header {
+  align-items: center;
+  justify-items: start;
+}
+
+.manage-reviewers-content {
+  padding: 10px 0px;
+  flex: 1;
+  overflow-y: auto;
+}
+.manage-reviewers-list-container {
+  background-color: var(--primary-color);
+  border: 1px solid var(--accent-color);
+  border-radius: 10px;
+  width: 60rem;
+  box-shadow: var(--box-shadow);
+  width: 99%;
+  height: 75vh;
+}
+.reviewers-list-search-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  border: 1px solid var(--accent-color);
+  max-width: 100%;
+  flex-wrap: wrap;
+  margin: 5px;
+}
+
+.assign-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--primary-button-color);
+  color: white;
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.assign-button:hover {
+  background-color: var(--hover-primary-button-color);
+}
+
+.assign-button-icon {
+  width: 18px;
+  height: 18px;
+}
+.reviewerlist-table-wrapper {
+  max-height: 67vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  border: 1px solid var(--accent-color);
+  border-radius: 6px;
+}

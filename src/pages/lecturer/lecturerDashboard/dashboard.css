@@ -1,0 +1,510 @@
+.lecture-page-dashboard-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100vh;
+  background-color: #f5f7f9;
+  overflow: hidden;
+}
+
+.lecture-dashboard {
+  display: flex;
+  background-color: var(--primary-color);
+  min-height: 100vh;
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.lecture-dashboard-main-body {
+  /* padding: 20px; */
+  width: 100%;
+  box-sizing: border-box;
+  height: auto;
+  overflow-y: auto;
+}
+
+.lecture-dashboard-welcome {
+  margin: 0;
+  font-size: var(--header-font-size);
+  font-weight: var(--header-font-weight);
+  color: var(--header-color);
+}
+
+.lecture-dashboard-main-header {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 10px;
+  width: 100%;
+}
+
+.lecturer-date {
+  margin: 0;
+  font-size: small;
+  color: var(--sub-header-color);
+}
+
+.lecture-dashboard-vertical-info {
+  display: flex;
+  flex-direction: row;
+}
+.lecture-dashboard-vertical-info h4 {
+  display: flex;
+  flex-direction: column;
+}
+
+.lecture-dashboard-vertical-items-icons {
+  display: flex;
+  width: 10%;
+  height: 10%;
+  padding: 10px;
+  margin-top: 25px;
+  border-top: 10vh;
+  color: #2080ce;
+  border-radius: 10px;
+  background-color: #ccf5f8;
+  margin-right: 15px;
+}
+.lecture-dashboard-vertical-items-icons2 {
+  display: flex;
+  width: 10%;
+  height: 10%;
+  padding: 10px;
+  margin-top: 25px;
+  border-top: 10vh;
+  color: #238070;
+  border-radius: 10px;
+  background-color: #b7e7db;
+  margin-right: 15px;
+}
+.lecture-dashboard-vertical-items-icons3 {
+  display: flex;
+  width: 10%;
+  height: 10%;
+  padding: 10px;
+  margin-top: 25px;
+  border-top: 10vh;
+  color: #684e09;
+  border-radius: 10px;
+  background-color: #ebca8e;
+  margin-right: 15px;
+}
+.lecture-dashboard-vertical-items-icons4 {
+  display: flex;
+  width: 10%;
+  height: 9%;
+  padding: 9px;
+  margin-top: 25px;
+  border-top: 10vh;
+  color: gray;
+  border-radius: 10px;
+  background-color: rgb(224, 223, 223);
+  margin-right: 15px;
+}
+.lecture-dashboard-main-contents {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.lecture-dashboard-vertical-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  padding: 20px 0px;
+}
+.lecturer-stats-card {
+  background-color: var(--primary-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--accent-color);
+  border-radius: 10px;
+  padding: 10px;
+  height: 110px;
+  box-shadow: var(--box-shadow);
+}
+
+.lecture-dashboard-item {
+  background-color: var(--primary-color);
+  padding: 0px 5px 2px 6px;
+  border-radius: 8px;
+  flex: 1 1 180px;
+  min-width: 50px;
+  height: 11vh;
+  border: 1px solid var(--accent-color);
+  box-sizing: border-box;
+  overflow: hidden;
+  box-shadow: var(--box-shadow);
+}
+
+.card-icon-container-notebooktext,
+.card-icon-container-clock,
+.card-icon-container-badge-check {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 50px;
+  border-radius: 7px;
+}
+
+.card-icon-container-notebooktext {
+  background-color: #cbdaf5;
+}
+.card-icon-container-clock {
+  background-color: #faeebc;
+}
+.card-icon-container-badge-check {
+  background-color: #cef5d4;
+}
+.badge-check-icon {
+  color: #08a129;
+}
+.clock-icon {
+  color: #c5a30b;
+}
+.notebooktext-icon {
+  color: #1d5edb;
+}
+
+.lecture-dashboard-report-main-section {
+  display: flex;
+  flex-direction: row;
+  min-width: 100%;
+  margin-top: 1px;
+  padding: 0px 5px 0px 0px;
+  min-height: 70%;
+  gap: 4px;
+}
+
+.lecture-dashboard-report-section {
+  margin-top: 18px;
+  display: flex;
+  background-color: var(--primary-color);
+  border-radius: 10px;
+  height: auto;
+  width: 70%;
+  flex-direction: column;
+  border: 1px solid var(--accent-color);
+}
+
+.lecture-dashboard-report-section-headings {
+  display: flex;
+  border-bottom: 0.3px solid var(--accent-color);
+  padding-left: 15px;
+  font-size: 50px;
+  font-weight: bold;
+}
+
+.lecture-dashboard-report-section-headings-upcoming {
+  display: flex;
+  border-bottom: 0.3px solid var(--accent-color);
+  padding-left: 15px;
+  font-size: 27px;
+  font-weight: bold;
+}
+
+.lecture-dashboard-report-section-headings p {
+  color: var(--header-color);
+  font-size: var(--header-font-size);
+  font-weight: var(--header-font-weight);
+}
+.lecture-dashboard-report-section-headings-recent-report {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  border-bottom: 0.3px solid var(--accent-color);
+  padding-left: 20px;
+  font-size: var(--header-font-size);
+  font-weight: bold;
+  height: 7vh;
+}
+.lecture-dashboard-report-section-headings-recent-report p {
+  color: var(--header-color);
+}
+.report-week-date {
+  color: gray;
+  font-size: 20px;
+}
+.report-activity {
+  color: gray;
+  font-size: 20px;
+}
+
+.lecture-dashboard-report {
+  border-bottom: 0.9px solid var(--accent-color);
+  padding-left: 13px;
+  display: flex;
+  flex-direction: column;
+  height: 24%;
+  min-width: 300px;
+  box-sizing: border-box;
+}
+
+.lecture-dashboard-report-and-date p {
+  font-size: medium;
+  color: gray;
+  white-space: nowrap;
+  margin: 0;
+}
+
+.lecture-dashboard-report-work p {
+  font-size: medium;
+  color: rgb(104, 101, 101);
+}
+
+.lecture-dashboard-report-and-date {
+  /* height: 100%; */
+  padding: 2px 5px 9px 6px;
+}
+
+.lecture-dashboard-report-and-status {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  overflow: hidden;
+  height: 80%;
+  min-width: 300px;
+}
+
+.lecture-dashboard-report-status {
+  display: flex;
+  flex-direction: row;
+  gap: 9px;
+  height: 60%;
+  margin-top: 12px;
+}
+
+.lecture-dashboard-report-status p {
+  width: 100%;
+  border-radius: 10px;
+  text-align: center;
+  overflow: hidden;
+  padding: 1px 9px 8px 8px;
+  height: 28%;
+  font-size: small;
+}
+
+.lecture-dashboard-report-status-icon {
+  cursor: pointer;
+  color: #238070;
+  margin-left: 8px;
+}
+
+.lecture-dashboard-report-Activities {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0px 7px 9px;
+  margin-left: 5px;
+  width: 30%;
+}
+
+.lecture-dashboard-report-Activity-Summary {
+  display: flex;
+  background-color: white;
+  border-radius: 10px;
+  width: 100%;
+  margin-bottom: 15px;
+  flex-direction: column;
+}
+.lecture-dashboard-report-progress-container {
+  width: 85%;
+  height: 15px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  margin: 2px auto;
+  overflow: hidden;
+}
+.lecture-dashboard-report-progress-bar {
+  height: 100%;
+  background-color: #2c89e8;
+  border-radius: 10px 0px 0px 10px;
+  transition: width 0.4s ease;
+}
+.lecture-dashboard-report-progress-label {
+  text-align: center;
+  font-size: 14px;
+  margin-top: 5px;
+  color: #333;
+  font-size: medium;
+}
+.lecture-dashboard-report-progress2-container {
+  width: 85%;
+  height: 15px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  margin: 2px auto;
+  overflow: hidden;
+}
+.lecture-dashboard-report-progress2-bar {
+  height: 100%;
+  background-color: rgb(10, 167, 10);
+  border-radius: 15x 0px 0px 10px;
+  transition: width 0.4s ease;
+}
+.lecture-dashboard-report-progress2-label {
+  text-align: center;
+  margin-top: 5px;
+  color: #333;
+  font-size: medium;
+}
+.lecture-dashboard-report-Deadline {
+  display: flex;
+  gap: 2px;
+
+  background-color: var(--primary-color);
+  border: 1px solid var(--accent-color);
+  border-radius: 10px;
+  width: 100%;
+  flex-direction: column;
+  overflow-y: auto;
+  height: 100%;
+}
+.lecture-dashboard-report-countdown-container {
+  display: flex;
+  flex-direction: column;
+}
+.lecture-dashboard-report-countdown {
+  display: flex;
+  flex-direction: row;
+}
+.lecture-dashboard-report-countdown-module {
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  font-size: large;
+  color: var(--header-color);
+}
+
+.lecturer-dashboard-report-list {
+  /* margin-top: 0.2cm; */
+
+  background-color: var(--primary-color);
+}
+
+/* .dashboard-report-card {
+  width: 100%;
+  border: 1px solid var(--accent-color);
+  border-radius: 8px;
+  gap: 15px;
+  padding: 10px;
+  background-color: var(--primary-color);
+  box-sizing: border-box;
+} */
+/* .dashboard-report-card {
+  display: flex;
+  flex-direction: column;  
+  gap:15px;                
+  width: 100%;
+  border: 1px solid var(--accent-color);
+  border-radius: 8px;
+  padding: 10px;
+  background-color: var(--primary-color);
+  box-sizing: border-box;
+} */
+
+.dashboard-report-report-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.dashboard-report-viewReport {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.dashboard-report-viewReport-link {
+  text-decoration: none;
+  font-weight: bold;
+  color: #0667f8;
+  background-color: #b5c6e0;
+  border-radius: 10px;
+  padding: 5px 15px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.dashboard-report-header {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+/* .dashboard-report-header h3 {
+  margin: 0;
+  font-size: 25px;
+} */
+
+.dashboard-report-body {
+  padding-top: 8px;
+  border-top: 1px solid #ccc;
+}
+
+.report-section {
+  margin-bottom: 12px;
+}
+
+.section-title {
+  margin-bottom: 4px;
+  font-weight: bold;
+  color: #333;
+}
+
+.reportHistory-calenderIcon {
+  color: rgb(100, 99, 99);
+  padding: 0px 5px 0px 0px;
+}
+
+.dashboard-report-module-status {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
+  color: var(--label-color);
+}
+
+.dashboard-report-module-status p {
+  width: 170px;
+  border-radius: 10px;
+  text-align: center;
+  overflow: hidden;
+  padding: 1px 5px 6px 5px;
+  font-size: small;
+  font-weight: bold;
+}
+
+.dashboard-report-module-date p {
+  color: var(--sub-header-color);
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.dashboard-report-submissiondate p {
+  color: var(--text-color);
+  font-size: smaller;
+}
+
+.dashboard-report-submissiondate {
+  border-top: 1px solid rgb(201, 198, 198);
+  margin-top: 10px;
+  padding-top: 5px;
+}
+.dashboard-report-viewReport button:hover svg {
+  stroke: #007bff;
+}
+.headingDeadline {
+  text-align: left;
+  padding-bottom: 40px;
+}

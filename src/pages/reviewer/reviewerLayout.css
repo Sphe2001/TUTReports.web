@@ -1,0 +1,19 @@
+.reviewer-layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--secondary-color);
+}
+
+.reviewer-pages-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  height: 100%;
+  overflow: hidden;
+}
+
+.reviewer-pages-container main {
+  height: 100%;
+  overflow-y: auto;
+  padding: 20px;
+}

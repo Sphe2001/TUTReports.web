@@ -1,0 +1,129 @@
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #0d0d0d;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04); 
+  opacity: 90%;
+  padding: 0.5rem 1rem;
+  min-height: 0px;
+  transition: all 0.3s ease;
+}
+
+.login-logo {
+  height: 36px;     
+  width: auto;
+  display: block;
+}
+
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.navbar-logo-img,
+.login-logo {
+  /* height: 36px; */
+  width: auto;
+  display: block;
+  margin: 0 auto;
+  height: 48px;             
+  transition: height 0.3s ease;
+}
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  padding: 0px;
+  transition: padding 0.3s ease;
+}
+
+.navbar-links li {
+  display: flex;
+  align-items: center;
+}
+
+
+.navbar-links li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.3rem 1rem;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+
+.navbar-links li:last-child a {
+  background: #1E90FF;
+  color: #fff;
+  font-weight: 700;
+  border-radius: 8px;
+  padding: 0.5rem 1.5rem;
+  font-size: 1.1rem;
+}
+
+.navbar-links li a:hover {
+  text-decoration: underline;
+  background: rgba(0,33,71,0.15);
+}
+
+.navbar-links li:last-child a:hover {
+  background: #002147;
+  color: #fff;
+  text-decoration: underline;
+}
+
+.navbar-title {
+  display: flex;
+  align-items: center;
+  height: 36px;     
+  font-size: 1.2rem; 
+  font-weight: 700;
+  color: white;
+  margin-left: 0.7rem;
+  letter-spacing: 1px;
+  transition: font-size 0.3s ease;
+}
+
+.navbar-separator {
+  display: inline-block;
+  height: 36px;          
+  width: 2px;
+  background: white;
+  margin: 0 0.7rem;
+  border-radius: 1px;
+  vertical-align: middle;
+}
+.hub-logo {
+  height: 36px;
+  width: 150px;
+  display: block;
+  margin: 0;
+}
+.navbar.scrolled {
+  padding: 0.2rem 0.5rem;   
+  min-height: 40px;         
+  background-color: rgba(0,0,0,0.85);
+}
+.navbar.scrolled .navbar-logo-img {
+  height: 28px !important;  
+}
+.navbar.scrolled .navbar-title {
+  font-size: 1rem;          
+}
+.navbar.scrolled .navbar-links {
+  gap: 0.8rem;              
+}
+
+

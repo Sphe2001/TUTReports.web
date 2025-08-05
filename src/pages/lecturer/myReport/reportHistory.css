@@ -1,0 +1,30 @@
+
+.report-history-main {
+  display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.lecturer-history-reports-list-container{
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.report-history-list {
+  display: flex;
+  flex-direction: column;
+  
+}
+.lecturers-search-container{
+  display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: var(--primary-color);
+    border: 1px solid var(--accent-color);
+    max-width: 100%;
+    flex-wrap: wrap;
+    margin: 5px;
+    
+}

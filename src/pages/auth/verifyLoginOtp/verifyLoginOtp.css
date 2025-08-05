@@ -1,0 +1,158 @@
+.login-otp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #fff 10%, #999 90%);
+}
+
+.login-otp-box {
+  background-color: rgb(255, 255, 255);
+  padding: 2rem;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  opacity: 90%;
+}
+
+.login-otp-title {
+  text-align: center;
+  font-size: 1.8rem;
+  color: #000000f2;
+  margin-bottom: 1.5rem;
+}
+
+/* .success-message {
+  background-color: #d1fae5;
+  color: #065f46;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border-radius: 5px;
+  font-size: 0.9rem;
+} */
+
+.login-otp-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.login-otp-form-group label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.login-otp-form-group input {
+  width: 95%;
+  margin-top: 5px;
+  padding: 0.5rem;
+  border: 1px solid #000000;
+  border-radius: 8px;
+}
+
+.login-otp-submit-btn {
+  background-color: #000000;
+  color: white;
+  padding: 0.6rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.login-otp-submit-btn:hover {
+  background-color: #141414;
+}
+
+.login-otp-back-link {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.login-otp-back-link {
+  color: #020d24;
+  text-decoration: none;
+}
+
+.login-otp-back-link:hover {
+  text-decoration: underline;
+  color: #10105a;
+  cursor: pointer;
+}
+.disabled {
+  pointer-events: none;
+  color: gray;
+}
+
+/* Tablet screens */
+@media (max-width: 1024px) {
+  .login-otp-container {
+    padding: 2rem;
+  }
+
+  .login-otp-box {
+    padding: 1.8rem;
+  }
+
+  .login-otp-title {
+    font-size: 1.6rem;
+  }
+}
+
+/* Smaller tablets and large phones */
+@media (max-width: 768px) {
+  .login-otp-container {
+    padding: 1.5rem;
+  }
+
+  .login-otp-box {
+    max-width: 90%;
+    padding: 1.5rem;
+  }
+
+  .login-otp-title {
+    font-size: 1.5rem;
+  }
+
+  .login-otp-form-group input {
+    width: 100%;
+    font-size: 0.95rem;
+  }
+
+  .login-otp-submit-btn {
+    padding: 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .login-otp-back-link {
+    font-size: 0.85rem;
+  }
+}
+
+/* mobile screens  */
+@media (max-width: 480px) {
+  .login-otp-box {
+    padding: 1rem;
+    border-radius: 0.75rem;
+  }
+
+  .login-otp-title {
+    font-size: 1.3rem;
+  }
+
+  .login-otp-submit-btn {
+    padding: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .login-otp-form-group input {
+    font-size: 0.9rem;
+  }
+
+  .login-otp-back-link {
+    font-size: 0.8rem;
+  }
+}

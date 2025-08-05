@@ -1,0 +1,112 @@
+.profile-side-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-side-info-card {
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  box-shadow: var(--box-shadow);
+  overflow: hidden;
+}
+
+.profile-side-info-card-header {
+  padding: 16px;
+  border-bottom: 1px solid var(--accent-color);
+  color: var(--header-color);
+}
+
+.profile-side-info-card-header h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.profile-side-info-card-body {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.profile-side-info-sidebar-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.875rem;
+  color: var(--text-color);
+  margin-left: 10px;
+}
+
+.icon-sm {
+  width: 18px;
+  height: 18px;
+}
+.user-icon {
+  color: #5564eb;
+}
+.calendar-icon {
+  color: #884ee6;
+}
+.shield-icon {
+  color: #de1212;
+}
+
+.icon-success {
+  width: 18px;
+  height: 18px;
+  color: #2e7d32;
+}
+
+.status-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-left: 5px;
+}
+
+.status-indicator.active {
+  background-color: #4caf50;
+}
+
+.status-indicator.inactive {
+  background-color: #f44336;
+}
+
+.profile-side-info-sidebar-btn {
+  width: 100%;
+  text-align: center;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  border: 1px solid var(--accent-color);
+  background-color: var(--secondary-button-color);
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  color: var(--label-color);
+}
+
+.profile-side-info-sidebar-btn:hover {
+  background-color: var(--hover-secondary-button-color);
+}
+
+.profile-side-info-sidebar-btn.deactivate {
+  color: var(--danger-text-color);
+  border-color: var(--danger-text-color);
+  background-color: var(--danger-button-color);
+}
+
+.profile-side-info-sidebar-btn.deactivate:hover {
+  background-color: var(--hover-danger-button-color);
+}
+.profile-side-info-sidebar-btn.activate {
+  color: var(--activate-text-color);
+  border-color: var(--activate-text-color);
+  background-color: var(--activate-button-color);
+}
+
+.profile-side-info-sidebar-btn.activate:hover {
+  background-color: var(--hover-activate-button-color);
+}

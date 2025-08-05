@@ -1,0 +1,353 @@
+.viewreport-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.viewreport-layout > .ribbon,
+.viewreport-layout > :first-child {
+  flex-shrink: 0;
+}
+
+.viewreport-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.viewreport-main {
+  display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.viewreport-container {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+}
+
+.viewreport-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.viewreport-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.viewreport-search {
+  display: flex;
+  align-items: center;
+  background-color: #f5f5f5;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.viewreport-search input {
+  border: none;
+  background: transparent;
+  margin-left: 8px;
+  outline: none;
+  font-size: 14px;
+}
+
+.viewreport-filter-button {
+  display: flex;
+  align-items: center;
+  padding: 6px 12px;
+  background-color: #e0e0e0;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  gap: 6px;
+}
+
+.viewreport-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.time-range-dropdown {
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  font-size: 14px;
+}
+
+.export-button {
+  padding: 6px 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.viewreport-list {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.viewreport-card {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #fafafa;
+}
+
+.viewreport-report-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.viewreport-header {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.viewreport-module-status {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.viewreport-module-status h3 {
+  margin: 0;
+}
+
+.viewreport-module-status .status {
+  border-radius: 10px;
+  text-align: center;
+  padding: 2px 10px;
+  background-color: #d3e3fc;
+  color: #044a8c;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.viewreport-calendar-icon {
+  color: gray;
+  margin-right: 5px;
+}
+
+.viewreport-view-button {
+  display: flex;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.viewreport-view-link {
+  padding: 6px 16px;
+  background-color: #b5c6e0;
+  color: #0667f8;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 10px;
+}
+
+.viewreport-submissiondate {
+  border-top: 1px solid rgb(201, 198, 198);
+  margin-top: 8px;
+}
+
+.viewreport-submissiondate p {
+  color: gray;
+  font-size: smaller;
+}
+
+/* Updated table styling to match HOD dashboard */
+
+.viewreport-table-wrapper {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  overflow-x: auto;
+  flex-grow: 1;
+}
+
+.viewreport-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.viewreport-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+  cursor: default;
+  transition: background-color 0.3s ease;
+  padding: 0.75rem;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+  user-select: none;
+}
+
+.viewreport-table thead th:hover {
+  background-color: #e8f0fe;
+  color: #1a73e8;
+  z-index: 101;
+}
+
+.viewreport-table tbody td {
+  padding: 0.75rem;
+  border-bottom: 1px solid #e0e0e0;
+  text-align: left;
+  user-select: none;
+}
+
+.viewreport-table tbody tr:hover {
+  background-color: #f1f7ff;
+}
+
+/* Keep existing hover but subtle to blend with new style */
+.viewreport-btn {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.viewreport-btn:hover {
+  background-color: #0056b3;
+}
+
+.viewreport-table-container {
+  overflow-x: auto;
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.viewreport-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+.viewreport-footer-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #f5f5f5;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.viewreport-footer-btn:hover {
+  background-color: #e0e0e0;
+}
+
+.Reviewer-report-history-card {
+  width: 100%;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #fafafa;
+  box-sizing: border-box;
+}
+
+.Reviewer-report-history-report-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.Reviewer-report-history-viewReport {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.Reviewer-report-history-viewReport-link {
+  text-decoration: none;
+  font-weight: bold;
+  color: #0667f8;
+  background-color: #b5c6e0;
+  border-radius: 10px;
+  padding: 5px 15px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.Reviewer-report-history-header {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.Reviewer-report-history-module-status {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.Reviewer-report-history-module-status p {
+  width: 190px;
+  border-radius: 10px;
+  text-align: center;
+  overflow: hidden;
+  padding: 1px 5px 6px 5px;
+  font-size: larger;
+  font-weight: bold;
+}
+
+.Reviewer-report-history-module-date p {
+  color: gray;
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+.Reviewer-report-history-submissiondate p {
+  color: gray;
+  font-size: smaller;
+}
+
+.Reviewer-report-history-submissiondate {
+  border-top: 1px solid rgb(201, 198, 198);
+  margin-top: 10px;
+  padding-top: 5px;
+}
+.Reviewer-report-history-viewReport button:hover svg {
+  stroke: #007bff;
+}

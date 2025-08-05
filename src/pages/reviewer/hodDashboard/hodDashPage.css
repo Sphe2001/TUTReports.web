@@ -1,0 +1,248 @@
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.hod-dashboard {
+  padding: 32px;
+  min-height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+/* Welcome section */
+.welcome-section-wrapper {
+  position: relative;
+  width: 100%;
+  margin-bottom: 32px;
+}
+
+.welcome-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+}
+
+.welcome-text h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--header-color);
+  margin-bottom: 4px;
+}
+
+.welcome-text p {
+  color: var(--sub-header-color);
+  font-size: 14px;
+}
+
+/* View all button pinned */
+.view-all-btn-absolute {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.view-all-btn-absolute:hover {
+  background-color: #1d4ed8;
+}
+
+/* Stats grid */
+/* .stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background-color: white;
+  padding: 24px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.stat-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+} */
+
+.stat-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.stat-icon.blue {
+  background-color: #dbeafe;
+  color: #2563eb;
+}
+
+.stat-icon.yellow {
+  background-color: #fef3c7;
+  color: #d97706;
+}
+
+.stat-icon.green {
+  background-color: #dcfce7;
+  color: #16a34a;
+}
+
+.stat-icon.red {
+  background-color: #ffe8e8;
+  color: #ea3333;
+}
+
+/* ✅ Updated Full-width Content Grid */
+.content-grid {
+  display: block;
+  width: 100%;
+}
+
+/* Pending Reviews */
+.pending-reviews {
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--accent-color);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px;
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.section-header h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--header-color);
+}
+
+.section-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--header-color);
+}
+
+.dashboard-report-list {
+  max-height: 400px;
+  overflow-y: auto;
+  background-color: var(--primary-color);
+}
+
+.review-card {
+  padding: 24px;
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.review-card:last-child {
+  border-bottom: none;
+}
+
+.review-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.review-info h3 {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--header-color);
+  margin-bottom: 4px;
+}
+
+.review-author,
+.review-description,
+.review-meta {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.review-description {
+  color: var(--label-color);
+}
+.review-meta {
+  color: var(--text-color);
+}
+.review-author {
+  color: var(--sub-header-color);
+  font-weight: 500;
+}
+
+.review-btn {
+  background-color: #2563eb;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.review-btn:hover {
+  background-color: #1d4ed8;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 9999px;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.no-reports {
+  padding: 40px 24px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.view-all-link {
+  padding: 0 24px 24px;
+}
+
+.view-all-link a {
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.view-all-link a:hover {
+  color: #1d4ed8;
+}

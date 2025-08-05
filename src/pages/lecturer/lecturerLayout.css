@@ -1,0 +1,19 @@
+.lecturer-layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--secondary-color);
+}
+
+.lecturer-pages-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  height: 100%;
+  overflow: hidden;
+}
+
+.lecturer-pages-container main {
+  height: 100%;
+  overflow-y: auto;
+  padding: 20px;
+}

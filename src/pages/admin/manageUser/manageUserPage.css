@@ -1,0 +1,231 @@
+.manage-users-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+}
+.manage-users-header-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0px;
+}
+
+.manage-users-header {
+  align-items: center;
+  justify-items: start;
+}
+
+.manage-users-content {
+  padding: 10px 0px;
+  height: 100%;
+  overflow: hidden;
+}
+.manage-users-list-container {
+  background-color: var(--primary-color);
+  border: 1px solid var(--accent-color);
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  width: 100%;
+  height: 100%;
+}
+.users-list-search-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  border: 1px solid var(--accent-color);
+  max-width: 100%;
+  flex-wrap: wrap;
+  margin: 5px;
+}
+
+.admin-search-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--accent-color);
+  border-radius: 6px;
+  padding: 8px 12px;
+  flex: 1;
+  min-width: 200px;
+  background-color: var(--secondary-color);
+}
+
+.admin-search-icon {
+  margin-right: 8px;
+  color: #9ca3af;
+}
+
+.admin-search-box input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: var(--header-color);
+  background-color: var(--secondary-color);
+}
+
+.admin-dropdown {
+  padding: 8px 12px;
+  border: 1px solid var(--accent-color);
+  border-radius: 6px;
+  background-color: var(--primary-color);
+  font-size: 14px;
+  color: var(--header-color);
+}
+
+.admin-filter-button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1px solid var(--accent-color);
+  border-radius: 6px;
+  background-color: var(--primary-color);
+  font-size: 14px;
+  color: var(--header-color);
+  cursor: pointer;
+}
+
+.admin-filter-button .icon {
+  width: 16px;
+  height: 16px;
+  color: var(--header-color);
+}
+
+.users-list-table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+.user-table-wrapper {
+  max-height: 67vh;
+  overflow-y: auto;
+  overflow-x: auto;
+  border: 1px solid var(--accent-color);
+  border-radius: 6px;
+}
+.user-account-table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid var(--accent-color);
+  table-layout: fixed;
+  overflow: scroll;
+}
+.user-account-table thead {
+  background-color: var(--secondary-color);
+  text-align: left;
+  font-weight: var(--sub-header-font-weight);
+  font-size: var(--sub-header-font-size);
+  color: var(--header-color);
+}
+
+.user-account-table th,
+.user-account-table td {
+  padding: 15px;
+  border-bottom: 1px solid var(--accent-color);
+  vertical-align: middle;
+  color: var(--header-color);
+}
+.user-account-table td {
+  height: 45px;
+}
+
+.user-account-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: var(--secondary-color);
+  z-index: 1;
+}
+
+.user-account-name-info {
+  display: flex;
+  align-items: center;
+  max-width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  justify-content: start;
+}
+
+.user-account-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  color: white;
+}
+
+.user-account-name {
+  font-weight: 600;
+  color: var(--header-color);
+}
+
+.user-account-email {
+  font-size: 13px;
+  color: var(--text-color);
+}
+
+.user-account-role {
+  font-weight: var(--sub-header-font-weight);
+  color: var(--header-color);
+}
+
+.user-account-status-badge {
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: lowercase;
+}
+
+.user-account-status-badge.active {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.user-account-status-badge.inactive {
+  background-color: #fef2f2;
+  color: #991b1b;
+}
+
+.user-account-action-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.user-account-edit-icon {
+  color: #2563eb;
+  cursor: pointer;
+}
+
+.user-account-delete-icon {
+  color: #dc2626;
+  cursor: pointer;
+}
+
+.manage-users-extra-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 30rem;
+  height: 30rem;
+}
+
+.manage-users-stats-container,
+.manage-users-quick-actions-container {
+  background-color: var(--primary-color);
+  border: 1px solid var(--accent-color);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}

@@ -1,0 +1,95 @@
+.group-card {
+  background-color: var(--primary-color);
+  padding: 1.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--accent-color);
+}
+
+.group-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.group-card-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.group-card-icon {
+  height: 2rem;
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  color: #1e4fd8;
+}
+
+.group-card-details {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  color: var(--text-color);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.group-card-details strong {
+  color: var(--label-color);
+}
+.group-card-info-text {
+  height: 10vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0;
+}
+.group-card-info-text span {
+  font-size: var(--header-font-size);
+  font-weight: var(--header-font-weight);
+  color: var(--header-color);
+}
+.group-card-info-text p {
+  font-size: var(--sub-header-font-size);
+  color: var(--text-color);
+  margin: 0;
+}
+.group-card-icon-box {
+  height: 100%;
+  background-color: #dbeafe;
+  padding: 10px;
+  border-radius: 10px;
+}
+.group-card-action-buttons {
+  display: flex;
+}
+.group-card-action-buttons button {
+  background: none;
+  border: none;
+}
+.group-card-action-icon {
+  color: var(--text-color);
+}
+.group-name {
+  font-size: var(--header-font-size);
+  display: flex;
+  flex-direction: column;
+}
+.group-name strong {
+  font-size: var(--header-font-size);
+}
+.group-name span {
+  font-size: var(--sub-header-font-size);
+  color: var(--text-color);
+}
+.total-students {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.total-students strong {
+  color: var(--label-color)
+}

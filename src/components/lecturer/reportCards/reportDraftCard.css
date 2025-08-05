@@ -1,0 +1,23 @@
+.status-span-draft{
+    background: rgb(254, 199, 199);
+    padding: 5px 8px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    color: rgb(174, 14, 14);
+    font-weight: 500;
+}
+.delete-draft-btn{
+    border: 1px solid var(--accent-color);
+    background: transparent;
+    padding: 0.5rem;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        color: var(--header-color);
+        display: flex;
+        align-items: center;
+}
+
+.delete-draft-btn:hover{
+    background: var(--secondary-color);
+}

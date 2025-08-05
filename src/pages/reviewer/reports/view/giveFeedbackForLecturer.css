@@ -1,0 +1,206 @@
+.view-report-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.view-report-content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.view-report-main {
+  flex: 1;
+  padding: 1rem 2rem;
+  overflow-y: auto;
+}
+
+.view-report-report-header {
+  margin-bottom: 2rem;
+}
+
+.view-report-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--header-color);
+}
+
+.view-report-description {
+   margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--sub-header-color);
+}
+
+.view-report-status-box {
+  width: 78%;
+  border-radius: 10px;
+  text-align: center;
+  overflow: hidden;
+  padding: 1px 5px 6px 5px;
+  height: 28%;
+  font-size: small;
+}
+
+.view-report-report-grid {
+ display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+  color: var(--label-color);
+}
+
+.view-report-info-card {
+  background-color: var(--primary-color);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+}
+
+.view-report-info-card.full-width {
+  grid-column: 1 / -1;
+}
+
+.view-report-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.view-report-card-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.view-report-card-content {
+  font-size: 0.95rem;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.view-report-activity-item {
+  border-bottom: 1px solid #eee;
+  padding: 0.5rem 0;
+}
+
+.view-report-activity-item:last-child {
+  border-bottom: none;
+}
+
+.view-report-sessions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.view-report-session-card {
+ background-color: var(--primary-color);
+  padding: 0.75rem;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  color: var(--label-color);
+}
+
+.view-report-session-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.view-report-session-header h3 {
+  margin: 0;
+}
+
+.view-report-date {
+ font-size: 0.85rem;
+  color: var(--label-color);
+}
+
+.view-report-session-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  color: var(--label-color);
+}
+.view-report-feedback-review-card {
+  background-color: var(--primary-color);
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: var(--box-shadow);
+  grid-column: 1 / -1;
+}
+
+.view-report-feedback-review-card .card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.view-report-feedback-review-card .card-header h2 {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.view-report-feedback-review-card .card-content {
+  font-size: 0.95rem;
+  color: #333;
+  line-height: 1.5;
+}
+
+
+@media (max-width: 1024px) {
+  .view-report-feedback-review-card {
+    grid-column: 1 / 2;
+  }
+}
+.view-report-feedback-button-container {
+ display: flex;
+  flex-wrap: nowrap; 
+  gap: 10px;
+  margin-top: 16px;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.view-report-feedback-button {
+  background-color: #2563eb;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: bold;
+  display: inline-block;
+  transition: background-color 0.2s ease;
+}
+
+.view-report-feedback-button:hover {
+  background-color: #1e40af;
+}
+.download-register-btn {
+  background-color: #2563eb;
+  color: #fff;
+  font-weight: bold;
+  border-radius: 6px;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  margin-left: 10px;
+  transition: background 0.2s;
+}
+
+.download-register-btn:hover {
+  background-color: #1e40af;
+}
+.view-report-feedback-button,
+.download-register-btn {
+  white-space: nowrap;
+  flex-shrink: 0;
+}

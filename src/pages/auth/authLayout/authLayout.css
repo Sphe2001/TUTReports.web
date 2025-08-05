@@ -1,0 +1,46 @@
+/* .authlayout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f5f7f9;
+}
+
+.pages-container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  height: 100%;
+  overflow: hidden;
+  grid-template-columns: 250px 1fr;
+    background-color: #f5f7f9;
+}
+
+.pages-container main {
+  height: 100%;
+  overflow-y: auto;
+  padding: 20px;
+} */
+/* @media (max-width: 768px) {
+  .pages-container {
+    grid-template-columns: 1fr;
+  }
+} */
+
+.site-footer {
+  background-color: #222;
+  color: #ddd;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  font-size: 14px;
+}
+
+.footer-links a {
+  margin-left: 1rem;
+  color: #bbb;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  color: white;
+}
