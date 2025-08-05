@@ -1,88 +1,96 @@
 .lecturer-sidebar-container {
-    display: flex;
-    flex-direction: column;
-    border-right: 1px solid var(--accent-color);
-    background-color: var(--primary-color);
-    gap: 50%;
-    width: 17rem;
-  }
-  
-  .lecturer-sidebar-main {
-    display: flex;
-    flex-direction: column;
-    
-    min-height: 0;
-  }
-  
-  
-  .lecturer-sidebar-nav {
-    flex: 1;
-    padding: 16px 8px;
-  }
-  
-  .lecturer-sidebar-link {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 12px 16px;
-    margin: 4px 0;
-    font-size: var(--sub-header-font-size);
-    font-weight: var(--sub-header-font-weight);
-    color:var(--disabled-text-color);
-    text-decoration: none;
-    border-radius: 6px;
-    transition: background 0.2s;
-  }
-  
-  .lecturer-sidebar-link:hover {
-    background-color: var(--hover-side-bar-link-background-color);
-  }
-  
-  .lecturer-sidebar-link.active {
-    background-color: var(--active-side-bar-link-background-color);
-    color: var(--active-text-color);
-  }
-  
-  .lecturer-sidebar-icon {
-    width: 30px;
-    height: 30px;
-    margin-right: 12px;
-    color: var(--disabled-icon-color);
-  }
-  
-  .lecturer-sidebar-link:hover .lecturer-sidebar-icon {
-    color:var(--hover-icon-color);
-  }
-  
-  .lecturer-sidebar-link.active .lecturer-sidebar-icon {
-    color: var(--active-icon-color);
-  }
-  
-  .lecturer-sidebar-indicator {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background-color: #3b82f6;
-    border-top-right-radius: 9999px;
-    border-bottom-right-radius: 9999px;
-  }
-  
-  .lecturer-sidebar-footer {
-    border-top: 1px solid var(--accent-color);
-    padding: 16px;
-  }
-  
-  .lecturer-sidebar-actions {
-    margin-top: 12px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  
-  .action-link {
-    display: flex;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--accent-color);
+  background-color: var(--primary-color);
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.lecturer-sidebar-main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+.sidebar-header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--accent-color);
+  padding: 0 24px;
+}
+
+.lecturer-sidebar-nav {
+  flex: 1;
+  padding: 16px 8px;
+}
+
+.lecturer-sidebar-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  margin: 4px 0;
+  font-size: var(--sub-header-font-size);
+  font-weight: var(--sub-header-font-weight);
+  color: var(--disabled-text-color);
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.lecturer-sidebar-link:hover {
+  background-color: var(--hover-side-bar-link-background-color);
+}
+
+.sidebar-link.active {
+  background-color: var(--active-side-bar-link-background-color);
+  color: var(--active-text-color);
+}
+
+.lecturer-sidebar-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 12px;
+  color: var(--disabled-icon-color);
+}
+
+.lecturer-sidebar-link:hover .sidebar-icon {
+  color: var(--hover-icon-color);
+}
+
+.lecturer-sidebar-link.active .sidebar-icon {
+  color: var(--active-icon-color);
+}
+
+.lecturer-sidebar-indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background-color: #3b82f6;
+  border-top-right-radius: 9999px;
+  border-bottom-right-radius: 9999px;
+}
+
+.lecturer-sidebar-footer {
+  border-top: 1px solid var(--accent-color);
+  padding: 16px;
+}
+
+.lecturer-sidebar-actions {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.action-link {
+  display: flex;
   align-items: center;
   font-size: 14px;
   color: var(--disabled-text-color);
@@ -93,16 +101,27 @@
   border: none;
   cursor: pointer;
   transition: background 0.2s;
-  }
-  
-  .action-link:hover {
-    background-color: var(--hover-side-bar-link-background-color);
-  }
-  
-  .action-icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 12px;
-    color: var(--disabled-icon-color);
-  }
-  
+}
+
+.action-link:hover {
+  background-color: var(--hover-side-bar-link-background-color);
+}
+
+.action-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 12px;
+  color: var(--disabled-icon-color);
+}
+
+.sidebar-hamburger {
+  background: none;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+

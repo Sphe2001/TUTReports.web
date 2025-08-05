@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   BarChart2,
@@ -8,6 +8,8 @@ import {
   BookText,
   LibraryBig,
   LayoutDashboard,
+  Menu,
+  SquareMenu,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import axios from "axios";
@@ -20,37 +22,34 @@ const HodDashboardSidebar = ({ closeSidebar }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const adminNavItems = useMemo(
-    () => [
-      { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard/reviewer" },
-      {
-        name: "All Reports",
-        icon: LibraryBig,
-        path: "/view-reports",
-      },
+  const adminNavItems = [
+    { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard/reviewer" },
+    {
+      name: "All Reports",
+      icon: LibraryBig,
+      path: "/view-reports",
+    },
 
-      {
-        name: "Pending Reports",
-        icon: BookText,
-        path: "/pending-reports",
-      },
+    {
+      name: "Pending Reports",
+      icon: BookText,
+      path: "/pending-reports",
+    },
 
-      {
-        name: "Reviewed Reports",
-        icon: BookOpenCheck,
-        path: "/reviewed-reports",
-      },
-
-      {
-        name: "Report Statistics",
-        icon: BarChart2,
-        path: "/report-stats",
-      },
-    ],
-    []
-  );
+    {
+      name: "Reviewed Reports",
+      icon: BookOpenCheck,
+      path: "/reviewed-reports",
+    },
+    {
+      name: "Report Statistics",
+      icon: BarChart2,
+      path: "/report-stats",
+    },
+  ];
 
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [collapsed, setCollapsed] = useState(false);
 
   useEffect(() => {
     const currentDropdown = adminNavItems.find(
@@ -63,7 +62,7 @@ const HodDashboardSidebar = ({ closeSidebar }) => {
     } else {
       setOpenDropdown(null);
     }
-  }, [location.pathname, adminNavItems]);
+  }, [location.pathname]);
 
   const handleDropdownClick = (item) => {
     const isOpen = openDropdown === item.name;
@@ -116,7 +115,20 @@ const HodDashboardSidebar = ({ closeSidebar }) => {
   };
 
   return (
-    <div className="sidebar-container">
+    <div className={`sidebar-container${collapsed ? " collapsed" : ""}`}>
+      <div className="sidebar-hamburger-wrapper">
+        <button
+          className="sidebar-hamburger"
+          onClick={() => setCollapsed((prev) => !prev)}
+          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+        >
+          {collapsed ? (
+            <SquareMenu className="sidebar-icon" size={30} />
+          ) : (
+            <Menu className="sidebar-icon" size={30} />
+          )}
+        </button>
+      </div>
       <div className="sidebar-main">
         <nav className="sidebar-nav">
           {adminNavItems.map((item) => {
@@ -137,7 +149,7 @@ const HodDashboardSidebar = ({ closeSidebar }) => {
                         isDropdownOpen ? "active-icon" : ""
                       }`}
                     />
-                    <span>{item.name}</span>
+                    {!collapsed && <span>{item.name}</span>}
                     {isDropdownOpen && (
                       <motion.div
                         layoutId="sidebar-indicator"
@@ -159,7 +171,7 @@ const HodDashboardSidebar = ({ closeSidebar }) => {
                         isActive ? "active-icon" : ""
                       }`}
                     />
-                    <span>{item.name}</span>
+                    {!collapsed && <span>{item.name}</span>}
                     {isActive && (
                       <motion.div
                         layoutId="sidebar-indicator"
@@ -210,11 +222,11 @@ const HodDashboardSidebar = ({ closeSidebar }) => {
         <div className="sidebar-actions">
           <Link to="/reviewer-profile" className="action-link">
             <Settings className="action-icon" />
-            Settings
+            {!collapsed && "Settings"}
           </Link>
           <button className="action-link" onClick={handleLogout}>
             <LogOut className="action-icon" />
-            Sign out
+            {!collapsed && "Sign out"}
           </button>
         </div>
       </div>

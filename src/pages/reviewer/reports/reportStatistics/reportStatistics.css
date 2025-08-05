@@ -380,6 +380,7 @@
   color: var(--text-color);
   border: 1px solid var(--disabled-color);
 }
+
 .attendance-inputs {
   display: flex;
   flex-wrap: wrap;
@@ -453,6 +454,7 @@
   border: 1px solid var(--disabled-color);
   color: var(--text-color);
 }
+
 /* --- Custom styled dropdown like Capture9 --- */
 .custom-dropdown {
   display: flex;
@@ -568,6 +570,7 @@
 [data-theme="dark"] .custom-dropdown-wrapper label {
   color: var(--label-color);
 }
+
 /* --- Top Nav Bar Tabs --- */
 .report-tab-nav {
   display: flex;
@@ -611,6 +614,7 @@
   background-color: #1d4ed8;
   border-radius: 1px;
 }
+
 .report-statistics {
   display: flex;
   flex-direction: column;
@@ -702,39 +706,50 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 0; 
-  margin: 0;  
+  padding: 0;
+  margin: 0;
 }
 
 /* If the bar chart is inside a `.section`, ensure section doesn't restrict it */
 .bar-chart-section .section {
   width: 100%;
-  padding: 0; /* UPDATED: Remove internal padding */
-  margin: 0;  /* UPDATED: Ensure no gap from siblings */
-  border-radius: 0; /* OPTIONAL: Remove border-radius to blend with interface edges */
-  background: none; /* UPDATED: Let parent background show if needed */
-  box-shadow: none; /* UPDATED: Remove box-shadow if blending into full interface */
-  overflow: visible; /* UPDATED: Avoid clipping if chart expands */
+  padding: 0;
+  /* UPDATED: Remove internal padding */
+  margin: 0;
+  /* UPDATED: Ensure no gap from siblings */
+  border-radius: 0;
+  /* OPTIONAL: Remove border-radius to blend with interface edges */
+  background: none;
+  /* UPDATED: Let parent background show if needed */
+  box-shadow: none;
+  /* UPDATED: Remove box-shadow if blending into full interface */
+  overflow: visible;
+  /* UPDATED: Avoid clipping if chart expands */
 }
 
 /* Match chart padding and layout */
 .bar-chart-section .recharts-wrapper {
   width: 100% !important;
-  height: auto; /* UPDATED: Let chart auto-scale */
-  min-height: 400px; /* OPTIONAL: Ensure visible chart area */
+  height: auto;
+  /* UPDATED: Let chart auto-scale */
+  min-height: 400px;
+  /* OPTIONAL: Ensure visible chart area */
 }
 
 
 /* Dark theme support */
 [data-theme="dark"] .bar-chart-section .section {
-  background-color: var(--primary-color); /* UPDATED: Match full interface theme */
-  border: none; /* UPDATED: Remove borders if full-width */
+  background-color: var(--primary-color);
+  /* UPDATED: Match full interface theme */
+  border: none;
+  /* UPDATED: Remove borders if full-width */
 }
 
 /* Optional: if using a container for bar chart keys */
 .bar-chart-section .report-key {
   margin-top: 1rem;
-  padding: 0 1rem; /* UPDATED: Optional spacing inside key */
+  padding: 0 1rem;
+  /* UPDATED: Optional spacing inside key */
 }
 
 /* Ensure consistency with other chart sections */
@@ -743,6 +758,7 @@
 .bar-chart-section {
   width: 100%;
 }
+
 .attendance-section {
   background: #fff;
   padding: 1rem 2rem;
@@ -899,4 +915,84 @@
   padding: 1rem;
   border-radius: 8px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode overrides for attendance section */
+[data-theme="dark"] .attendance-section {
+  background-color: var(--secondary-color);
+  color: var(--label-color);
+}
+
+[data-theme="dark"] .attendance-section .section-title {
+  color: var(--header-color);
+}
+
+[data-theme="dark"] .filter-item label {
+  color: var(--label-color);
+}
+
+[data-theme="dark"] .filter-item select,
+[data-theme="dark"] .filter-item input[type="date"] {
+  background-color: var(--primary-color);
+  color: var(--label-color);
+  border: 1px solid var(--disabled-color);
+}
+
+/* Dark mode for view-dropdown-wrapper */
+[data-theme="dark"] .view-dropdown-wrapper select,
+[data-theme="dark"] .view-dropdown-wrapper button {
+  background-color: var(--secondary-color);
+  color: var(--label-color);
+  border: 1px solid var(--disabled-color);
+}
+
+[data-theme="dark"] .view-dropdown-wrapper button {
+  background-color: #388e3c;
+  color: white;
+}
+
+[data-theme="dark"] .view-dropdown-wrapper button:hover {
+  background-color: #2e7d32;
+}
+
+/* Dark mode for pie-chart-box and quick-stats-box */
+[data-theme="dark"] .pie-chart-box,
+[data-theme="dark"] .quick-stats-box {
+  background-color: var(--accent-color);
+  border: 1px solid var(--disabled-color);
+  color: var(--text-color);
+}
+
+[data-theme="dark"] .chart-title {
+  color: var(--header-color);
+}
+
+[data-theme="dark"] .chart-subtitle {
+  color: var(--sub-header-color);
+}
+
+[data-theme="dark"] .legend-description {
+  color: var(--label-color);
+}
+
+/* Optional: dark theme for individual stat cards */
+[data-theme="dark"] .stat-card.green {
+  background-color: rgba(34, 197, 94, 0.15);
+  /* semi-transparent green */
+  color: #22c55e;
+}
+
+[data-theme="dark"] .stat-card.red {
+  background-color: rgba(244, 67, 54, 0.15);
+  color: #ef4444;
+}
+
+[data-theme="dark"] .stat-card.blue {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+[data-theme="dark"] .stat-card.purple {
+  background-color: rgba(139, 92, 246, 0.15);
+  color: #a78bfa;
 }

@@ -11,6 +11,8 @@ import {
   UserPlus,
   UserCog,
   LayoutDashboard,
+  Menu,
+  SquareMenu,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import axios from "axios";
@@ -58,6 +60,9 @@ function AdminSideBar({ closeSidebar }) {
 
   const [openDropdown, setOpenDropdown] = useState(null);
 
+  // Add collapsed state
+  const [collapsed, setCollapsed] = useState(false);
+
   useEffect(() => {
     const currentDropdown = adminNavItems.find(
       (item) =>
@@ -69,7 +74,7 @@ function AdminSideBar({ closeSidebar }) {
     } else {
       setOpenDropdown(null);
     }
-  }, [location.pathname, adminNavItems]);
+  }, [location.pathname]);
 
   const handleDropdownClick = (item) => {
     const isOpen = openDropdown === item.name;
@@ -122,7 +127,17 @@ function AdminSideBar({ closeSidebar }) {
   };
 
   return (
-    <div className="sidebar-container">
+    <div className={`sidebar-container${collapsed ? " collapsed" : ""}`}>
+      {/* Hamburger/Menu Icon for collapsing/expanding */}
+      <div className="sidebar-hamburger-wrapper">
+        <button
+          className="sidebar-hamburger"
+          onClick={() => setCollapsed((prev) => !prev)}
+          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+        >
+          {collapsed ? <SquareMenu size={30} /> : <Menu size={30} />}
+        </button>
+      </div>
       <div className="sidebar-main">
         <nav className="sidebar-nav">
           {adminNavItems.map((item) => {
@@ -143,7 +158,7 @@ function AdminSideBar({ closeSidebar }) {
                         isDropdownOpen ? "active-icon" : ""
                       }`}
                     />
-                    <span>{item.name}</span>
+                    {!collapsed && <span>{item.name}</span>}
                     {isDropdownOpen && (
                       <motion.div
                         layoutId="sidebar-indicator"
@@ -165,7 +180,7 @@ function AdminSideBar({ closeSidebar }) {
                         isActive ? "active-icon" : ""
                       }`}
                     />
-                    <span>{item.name}</span>
+                    {!collapsed && <span>{item.name}</span>}
                     {isActive && (
                       <motion.div
                         layoutId="sidebar-indicator"
@@ -216,12 +231,12 @@ function AdminSideBar({ closeSidebar }) {
         <div className="sidebar-actions">
           <Link to="/admin/settings" className="admin-action-link">
             <Settings className="action-icon" />
-            Settings
+            {!collapsed && "Settings"}
           </Link>
 
           <button className="admin-action-link" onClick={handleLogout}>
             <LogOut className="action-icon" />
-            Sign out
+            {!collapsed && "Sign out"}
           </button>
         </div>
       </div>

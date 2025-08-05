@@ -132,6 +132,7 @@
   color: var(--hover-text-color);
   font-weight: var(--text-font-weight);
 }
+
 .sidebar-sublink.active {
   color: var(--active-text-color);
   font-weight: var(--text-font-weight);
@@ -146,7 +147,6 @@
 .admin-dropdown-links {
   margin-left: 20px;
   padding-left: 10px;
-  /* border-left: 3px solid #3b82f6; */
   margin-top: 6px;
   display: flex;
   flex-direction: column;
@@ -182,32 +182,14 @@
   color: var(--active-text-color);
 }
 
-/* .support-link {
+.sidebar-hamburger {
+  background: none;
+  border: none;
+  box-shadow: none;
+  outline: none;
+  padding: 8px;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  font-size: 14px;
-  color: #374151;
-  padding: 8px 16px;
-  border-radius: 6px;
-  text-decoration: none;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s;
 }
 
-
-.action-link:hover {
-  background-color: #f3f4f6;
-}
-
-.action-icon {
-  width: 20px;
-  height: 20px;
-  margin-right: 12px;
-  color: #9ca3af;
-}
-
-.support-text {
-  font-size: 1.1rem;
-} */

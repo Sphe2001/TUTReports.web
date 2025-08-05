@@ -15,7 +15,7 @@ import {
 } from "recharts";
 
 import "./reportStatistics.css";
-import { toast, Toaster } from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartBar,
@@ -110,9 +110,7 @@ const LecturerSelect = ({ onSelect }) => {
 };
 
 const ReportStatistics = () => {
-  const API_ENDPOINT = process.env.REACT_APP_API_END_POINT;
   const [currentDateTime, setCurrentDateTime] = useState("");
-  let viewMode = "Grid";
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [totalReports, setTotalReports] = useState(0);
@@ -122,7 +120,6 @@ const ReportStatistics = () => {
   const [userId, setUserId] = useState("");
   const [submissionStartDate, setSubmissionStartDate] = useState("");
   const [submissionEndDate, setSubmissionEndDate] = useState("");
-  const [submissionStats, setSubmissionStats] = useState(null);
   const [activeTab, setActiveTab] = useState("All Report Statistics");
   const [groupId, setGroupId] = useState("");
   const [attendanceStartDate, setAttendanceStartDate] = useState("");
@@ -141,6 +138,17 @@ const ReportStatistics = () => {
   const [allTimeGroups, setAllTimeGroups] = useState([]);
   const [allTimeModules, setAllTimeModules] = useState([]);
   const [allTimeLecturers, setAllTimeLecturers] = useState([]);
+  const [pieData, setPieData] = useState([]);
+  const barColors1 = [
+    "#4caf50", // green
+    "#f44336", // red
+    "#2196f3", // blue
+    "#ff9800", // orange
+    "#9c27b0", // purple
+    "#00bcd4", // cyan
+    "#607d8b", // grey-blue
+    "#795548", // brown
+  ];
 
   const fetchWithToast = async (url, setter, label, valueKey = "data") => {
     try {
@@ -178,15 +186,49 @@ const ReportStatistics = () => {
       );
       const res = resp.data;
       if (res.status) {
-        setSubmissionStats(res);
+        // Create pie chart data from new fields
+        const pieChartData = [
+          {
+            name: "Submission Rate",
+            value: parseFloat(res.submissionRate || 0),
+          },
+          {
+            name: "Missed Submission Rate",
+            value: parseFloat(res.missedSubmissionRate || 0),
+          },
+          {
+            name: "Early Submissions",
+            value: parseInt(res.earlySubmissions || 0),
+          },
+          {
+            name: "Early Submission Rate",
+            value: parseFloat(res.earlySubmissionRate || 0),
+          },
+          {
+            name: "Late Submissions",
+            value: parseInt(res.lateSubmissions || 0),
+          },
+          {
+            name: "Late Submission Rate",
+            value: parseFloat(res.lateSubmissionRate || 0),
+          },
+          { name: "Total Reports", value: parseInt(res.totalReports || 0) },
+          { name: "Missed Reports", value: parseInt(res.missedReports || 0) },
+        ];
+
+        setPieData(pieChartData);
+
         toast.success("Submission stats loaded.");
-      } else toast.error(res.message || "Failed to fetch submission rate.");
+      } else {
+        toast.error(res.message || "Failed to fetch submission rate.");
+      }
     } catch (err) {
       toast.error(
         err.response?.data?.message || "Error fetching submission rate."
       );
     }
   };
+
   useEffect(() => {
     const fetchReviewerDepartment = async () => {
       try {
@@ -200,8 +242,7 @@ const ReportStatistics = () => {
 
         if (response?.data?.status) {
           const reviewerDepartment = response.data.reviewerDepartment;
-
-          fetchAllOptionsByDepartment(reviewerDepartment);
+          await fetchAllOptionsByDepartment(reviewerDepartment);
         } else {
           toast.error(
             response?.data?.message || "Failed to get reviewer department."
@@ -222,7 +263,7 @@ const ReportStatistics = () => {
           headers: { "Content-Type": "application/json" },
         };
 
-        // ✅ Fetch lecturers (no change)
+        // Fetch lecturers
         const lecturersResp = await axios.get(
           `${API_ENDPOINT}/api/UserGetters/GetDepartmentLecturers?department=${deptId}`,
           config
@@ -245,7 +286,7 @@ const ReportStatistics = () => {
           );
         }
 
-        // ✅ Fetch groups and modules from GetAllGroupsPerDepartment
+        // Fetch groups and modules
         const groupsResp = await axios.get(
           `${API_ENDPOINT}/api/UserGetters/GetAllGroupsPerDepartment?department=${deptId}`,
           config
@@ -254,32 +295,39 @@ const ReportStatistics = () => {
         if (groupsResp.data.status && Array.isArray(groupsResp.data.data)) {
           const rawData = groupsResp.data.data;
 
-          // Extract and set groups
-          const groups = rawData.map((g) => ({
-            groupId: g.groupId,
-            groupName: g.groupName,
-          }));
-          setCustomRangeGroups(groups);
-          setAllTimeGroups(groups);
-
-          // Extract and deduplicate modules
-          const moduleMap = new Map();
+          // Deduplicate groups by groupId
+          const groupMap = new Map();
           rawData.forEach((g) => {
-            if (g.moduleName) {
-              const key = g.moduleName.trim().toLowerCase();
-              if (!moduleMap.has(key)) {
-                moduleMap.set(key, {
-                  moduleId: key, // using moduleName as pseudo-id
-                  moduleName: g.moduleName,
+            if (g.groupId != null) {
+              if (!groupMap.has(g.groupId)) {
+                groupMap.set(g.groupId, {
+                  groupId: g.groupId,
+                  groupName: g.groupName,
                 });
               }
             }
           });
+          const groups = Array.from(groupMap.values());
+          setCustomRangeGroups(groups);
+          setAllTimeGroups(groups);
+
+          // Deduplicate modules by normalized moduleName
+          const moduleMap = new Map();
+          rawData.forEach((g) => {
+            if (g.moduleName && g.moduleId) {
+              const key = g.moduleName.trim().toLowerCase();
+              if (!moduleMap.has(key)) {
+                moduleMap.set(key, {
+                  moduleId: g.moduleId, // Include moduleId here
+                  moduleName: g.moduleName.trim(),
+                });
+              }
+            }
+          });
+
           const modules = Array.from(moduleMap.values());
           setCustomRangeModules(modules);
           setAllTimeModules(modules);
-
-          toast.success("Groups and modules populated.");
         } else {
           toast.error(
             groupsResp.data.message || "Failed to load groups/modules."
@@ -306,7 +354,6 @@ const ReportStatistics = () => {
       let res;
       let params = {};
 
-      // Validate required params based on view
       if (attendanceView === "customRange") {
         if (!groupId || !attendanceStartDate || !attendanceEndDate) {
           toast.error("Group, start date, and end date are required.");
@@ -323,12 +370,12 @@ const ReportStatistics = () => {
         );
       } else if (attendanceView === "allTime") {
         if (!groupId) {
-          toast.error("Group is required.");
+          toast.error("Group is required for all-time view.");
           return;
         }
         params = { groupId };
         res = await axios.get(
-          `${API_ENDPOINT}/api/stats/attendance/GetAllTimeAttendanceByGroup`,
+          `${API_ENDPOINT}/api/stats/attendance/GetAllTimeAttendance`,
           { params, ...config }
         );
       } else if (attendanceView === "customRangeByModule") {
@@ -379,6 +426,9 @@ const ReportStatistics = () => {
           `${API_ENDPOINT}/api/stats/attendance/GetAllTimeAttendanceByLecturer`,
           { params, ...config }
         );
+      } else {
+        toast.error("Unknown attendance view selected.");
+        return;
       }
 
       if (!res || !res.data) {
@@ -389,12 +439,20 @@ const ReportStatistics = () => {
       const { status, ...data } = res.data;
 
       if (status) {
-        const total = parseInt(data.totalStudents || 0);
-        const attended = parseInt(data.attendedStudents || 0);
+        const total = parseInt(data.totalStudents || 0, 10);
+        const rawPercentage = parseFloat(data.attendancePercentage || 0);
+        const percentage = parseFloat(rawPercentage.toFixed(2));
+
+        // Calculate attended using percentage if not already provided
+        let attended = parseInt(data.attendedStudents || 0, 10);
+        if ((!attended || attended === 0) && total > 0 && percentage >= 0) {
+          attended = Math.round((percentage / 100) * total);
+        }
+
         const absent =
           typeof data.absentStudents === "number"
-            ? data.absentStudents
-            : total - attended;
+            ? Math.round(data.absentStudents)
+            : Math.max(0, total - attended);
 
         const pieChartData = [
           { name: "Present", value: attended, color: "#4caf50" },
@@ -404,9 +462,9 @@ const ReportStatistics = () => {
         const stats = {
           ...data,
           pieChartData,
-          highestAttendance: data.attendancePercentage || 0,
-          lowestAttendance: 100 - (data.attendancePercentage || 0),
-          averageRate: data.attendancePercentage || 0,
+          highestAttendance: percentage,
+          lowestAttendance: parseFloat((100 - percentage).toFixed(2)),
+          averageRate: percentage,
           totalStudents: total,
           attendedStudents: attended,
           absentStudents: absent,
@@ -476,13 +534,7 @@ const ReportStatistics = () => {
     };
 
     fetchStats();
-  }, [
-    totalReports,
-    missedReports,
-    unreviewedReports,
-    reviewedReports,
-    API_ENDPOINT,
-  ]);
+  }, [totalReports, missedReports, unreviewedReports, reviewedReports]);
 
   const renderKeyLegend = (labels, colors) => (
     <div className="report-key">
@@ -531,59 +583,33 @@ const ReportStatistics = () => {
   const renderCharts = () => {
     if (loading) return <p>Loading stats...</p>;
 
-    const pieData = submissionStats
-      ? [
-          {
-            name: "Submission Rate",
-            value: submissionStats.submissionRate ?? 0,
-          },
-          {
-            name: "Missed Submission Rate",
-            value: submissionStats.missedSubmissionRate ?? 0,
-          },
-          { name: "Total Reports", value: submissionStats.totalReports ?? 0 },
-          { name: "Missed Reports", value: submissionStats.missedReports ?? 0 },
-        ]
-      : [
-          { name: "Reports", value: data[0].numReports },
-          { name: "Reviewed", value: data[0].reviewedCount },
-          { name: "Pending", value: data[0].pendingReports },
-        ];
-
-    const wrapperClass =
-      viewMode === "Grid" ? "report-chart-quad-split" : "report-chart-list";
-
     return (
       <>
-        <Toaster position="top-center" />
         {activeTab === "All Report Statistics" && (
           <>
             {renderKPICounters()}
-            <div className={wrapperClass}>
-              <div className="bar-chart-section">
-                <div className="section">
-                  <h3>Bar Chart</h3>
-                  {renderKeyLegend(
-                    ["Reports", "Reviewed", "Pending"],
-                    barColors
-                  )}
-                  <ResponsiveContainer width="100%" height={300}>
-                    <BarChart data={data}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis
-                        dataKey="category"
-                        angle={-40}
-                        textAnchor="end"
-                        height={80}
-                      />
-                      <YAxis />
-                      <Tooltip />
-                      <Bar dataKey="numReports" fill={barColors[0]} />
-                      <Bar dataKey="reviewedCount" fill={barColors[1]} />
-                      <Bar dataKey="pendingReports" fill={barColors[2]} />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </div>
+            <div style={{ width: "100%", height: "calc(100vh - 120px)" }}>
+              {" "}
+              {/* Adjust height offset if needed */}
+              <div style={{ width: "100%", height: "100%" }}>
+                <h3>Bar Chart</h3>
+                {renderKeyLegend(["Reports", "Reviewed", "Pending"], barColors)}
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={data}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis
+                      dataKey="category"
+                      angle={-40}
+                      textAnchor="end"
+                      height={80}
+                    />
+                    <YAxis />
+                    <Tooltip />
+                    <Bar dataKey="numReports" fill={barColors[0]} />
+                    <Bar dataKey="reviewedCount" fill={barColors[1]} />
+                    <Bar dataKey="pendingReports" fill={barColors[2]} />
+                  </BarChart>
+                </ResponsiveContainer>
               </div>
             </div>
           </>
@@ -609,26 +635,23 @@ const ReportStatistics = () => {
               />
               <button onClick={fetchSubmissionRate}>Fetch</button>
             </div>
-            {submissionStats && (
-              <div className="submission-stats">
-                {Object.entries(submissionStats).map(([k, v]) => (
-                  <p key={k}>
-                    {k.replace(/([A-Z])/g, " $1")}: {v}
-                  </p>
-                ))}
-              </div>
-            )}
+
             <div className="section pie-chart-section">
               <h3>Pie Chart</h3>
               {renderKeyLegend(
                 [
                   "Submission Rate",
                   "Missed Submission Rate",
+                  "Early Submissions",
+                  "Early Submission Rate",
+                  "Late Submissions",
+                  "Late Submission Rate",
                   "Total Reports",
                   "Missed Reports",
                 ],
-                barColors
+                barColors1
               )}
+
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
                   <Tooltip />
@@ -650,9 +673,9 @@ const ReportStatistics = () => {
             </div>
           </div>
         )}
+
         {activeTab === "By Student Attendance" && (
           <div className="attendance-section">
-            <Toaster />
             <h2 className="section-title">Attendance Statistics</h2>
 
             {/* View Option Dropdown */}
@@ -719,8 +742,8 @@ const ReportStatistics = () => {
                   {(attendanceView === "customRangeByModule"
                     ? customRangeModules
                     : allTimeModules
-                  ).map((m) => (
-                    <option key={m.moduleId} value={m.moduleId}>
+                  ).map((m, index) => (
+                    <option key={index} value={m.moduleId}>
                       {m.moduleName}
                     </option>
                   ))}
