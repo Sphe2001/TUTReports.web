@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Save, ArrowLeft, AlertTriangle, User } from "lucide-react";
+import { Save, ArrowLeft, AlertTriangle } from "lucide-react";
 import "./lecturerProfile.css";
 import axios from "axios";
 import ProfileSideInfo from "../../../../../components/admin/editUserProfile/profileSideInfo/profileSideInfo";

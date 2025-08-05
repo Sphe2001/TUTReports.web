@@ -47,7 +47,7 @@ const AssignAcademicProperties = () => {
       }
     };
     fetchUsers();
-  }, []);
+  }, [API_ENDPOINT]);
   let filteredUsers;
   if (users) {
     filteredUsers = users.filter((user) => {

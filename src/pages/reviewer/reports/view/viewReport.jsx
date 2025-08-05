@@ -117,7 +117,6 @@ const ViewReportPage = () => {
         if (response?.data?.status) {
           setReport(response.data.report);
           console.log(response.data.report);
-          console.log("the report " + report);
         }
       } catch (error) {
         console.error("Failed to fetch report:", error);

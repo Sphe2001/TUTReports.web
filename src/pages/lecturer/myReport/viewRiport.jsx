@@ -22,7 +22,6 @@ const ViewReport = () => {
   const navigate = useNavigate();
   const [report, setReport] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [moduleGroups, setModuleGroups] = useState([]);
 
   const getStatusStyle = (status, feedback) => {
     if (status === false || status === "false") {
@@ -61,11 +60,6 @@ const ViewReport = () => {
         if (res.data.status) {
           const fetchedReport = res.data;
           setReport(fetchedReport);
-
-          // Fetch group info if available
-          if (fetchedReport.groups) {
-            setModuleGroups(fetchedReport.groups);
-          }
         }
       } catch (err) {
         console.error("Failed to load report/groups", err);

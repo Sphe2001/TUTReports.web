@@ -114,7 +114,7 @@ export default function Ribbon({ interface: interfaceData = null }) {
       getProfilePicture();
       fetchNotificationsPreview();
     }
-  }, [interfaceData]);
+  }, [interfaceData, API_ENDPOINT]);
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 
