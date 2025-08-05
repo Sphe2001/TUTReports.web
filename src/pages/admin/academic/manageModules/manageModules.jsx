@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "./manageModules.css";
 import { motion } from "framer-motion";
 import { Plus, Search, Building2, ArrowLeft } from "lucide-react";
@@ -13,7 +13,7 @@ const ManageModules = () => {
   const [departments, setDepartments] = useState([]);
   const [searchQuery, setSearchQuery] = useState(""); // 🔍 Search state
 
-  const fetchModules = async () => {
+  const fetchModules = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/AcademyGet/GetAllModules`
@@ -27,9 +27,9 @@ const ManageModules = () => {
       console.log(error.response?.data?.message || "An error occurred");
       setModules([]);
     }
-  };
+  }, [API_ENDPOINT]);
 
-  const fetchDepartments = async () => {
+  const fetchDepartments = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/AcademyGet/GetAllDepartments`
@@ -43,7 +43,8 @@ const ManageModules = () => {
       console.log(error.response?.data?.message || "An error occurred");
       setDepartments([]);
     }
-  };
+  }, [API_ENDPOINT]);
+
   useEffect(() => {
     fetchModules();
     fetchDepartments();

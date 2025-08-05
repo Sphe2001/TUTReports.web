@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./lecturerAssign.css";
 import { toast } from "react-hot-toast";
 import { Trash2, UserRoundPen, ArrowLeft } from "lucide-react";
@@ -21,114 +21,129 @@ const LecturerAssignPage = ({ interface: interfaceData = null }) => {
   const [modules, setModules] = useState([]);
   const [lecturer, setLecturer] = useState(null);
 
-  const fetchLecturer = async (id) => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/AdminGetUserProfile/GetLecturerProfile`,
-        {
-          params: { userId: id },
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
+  const fetchLecturer = useCallback(
+    async (id) => {
+      try {
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/AdminGetUserProfile/GetLecturerProfile`,
+          {
+            params: { userId: id },
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        if (response?.data?.status) {
+          setLecturer(response?.data?.lecturer);
+        } else {
+          console.log(response?.data?.message || "Failed to fetch lecturer");
+          setLecturer(null);
         }
-      );
-      if (response?.data?.status) {
-        setLecturer(response?.data?.lecturer);
-      } else {
-        console.log(response?.data?.message || "Failed to fetch lecturer");
+      } catch (error) {
+        console.log(error.response?.data?.message || "An error occurred");
         setLecturer(null);
       }
-    } catch (error) {
-      console.log(error.response?.data?.message || "An error occurred");
-      setLecturer(null);
-    }
-  };
+    },
+    [API_ENDPOINT]
+  );
   const [profile, setProfile] = useState(null);
-  const getUserProfile = async (id) => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/UserProfile/GetUserProfilePicture`,
-        {
-          params: { userId: id },
-          withCredentials: true,
-          responseType: "blob",
-        }
-      );
-      const imageBlob = response.data;
-      const imageUrl = URL.createObjectURL(imageBlob);
-      setProfile(imageUrl);
-    } catch (error) {
-      console.log(error);
-      setProfile(null);
-    }
-  };
+  const getUserProfile = useCallback(
+    async (id) => {
+      try {
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/UserProfile/GetUserProfilePicture`,
+          {
+            params: { userId: id },
+            withCredentials: true,
+            responseType: "blob",
+          }
+        );
+        const imageBlob = response.data;
+        const imageUrl = URL.createObjectURL(imageBlob);
+        setProfile(imageUrl);
+      } catch (error) {
+        console.log(error);
+        setProfile(null);
+      }
+    },
+    [API_ENDPOINT]
+  );
 
-  const fetchDepartments = async (id) => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/AdminGetUserProfile/GetLecturerAvailableDepartments`,
-        {
-          params: { userId: id },
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+  const fetchDepartments = useCallback(
+    async (id) => {
+      try {
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/AdminGetUserProfile/GetLecturerAvailableDepartments`,
+          {
+            params: { userId: id },
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
 
-      if (response?.data?.status) {
-        setDepartments(response?.data?.departments || []);
-      } else {
-        console.log(response?.data?.message || "Failed to fetch departments");
+        if (response?.data?.status) {
+          setDepartments(response?.data?.departments || []);
+        } else {
+          console.log(response?.data?.message || "Failed to fetch departments");
+          setDepartments([]);
+        }
+      } catch (error) {
+        console.log(error.response?.data?.message || "An error occurred");
         setDepartments([]);
       }
-    } catch (error) {
-      console.log(error.response?.data?.message || "An error occurred");
-      setDepartments([]);
-    }
-  };
-  const fetchModules = async (id) => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/AdminGetUserProfile/GetLecturerAvailablebleModules`,
-        {
-          params: { userId: id },
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+    },
+    [API_ENDPOINT]
+  );
+  const fetchModules = useCallback(
+    async (id) => {
+      try {
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/AdminGetUserProfile/GetLecturerAvailablebleModules`,
+          {
+            params: { userId: id },
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
 
-      if (response?.data?.status) {
-        setModules(response?.data?.modules || []);
-      } else {
-        console.log(response?.data?.message || "Failed to fetch modules");
+        if (response?.data?.status) {
+          setModules(response?.data?.modules || []);
+        } else {
+          console.log(response?.data?.message || "Failed to fetch modules");
+          setModules([]);
+        }
+      } catch (error) {
+        console.log(error.response?.data?.message || "An error occurred");
         setModules([]);
       }
-    } catch (error) {
-      console.log(error.response?.data?.message || "An error occurred");
-      setModules([]);
-    }
-  };
-  const fetchGroups = async (id) => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/AdminGetUserProfile/GetLecturerAvailablebleGroups`,
-        {
-          params: { userId: id },
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      console.log(response);
+    },
+    [API_ENDPOINT]
+  );
+  const fetchGroups = useCallback(
+    async (id) => {
+      try {
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/AdminGetUserProfile/GetLecturerAvailablebleGroups`,
+          {
+            params: { userId: id },
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        console.log(response);
 
-      if (response?.data?.status) {
-        setGroups(response?.data?.groups || []);
-      } else {
-        console.log(response?.data?.message || "Failed to fetch groups");
+        if (response?.data?.status) {
+          setGroups(response?.data?.groups || []);
+        } else {
+          console.log(response?.data?.message || "Failed to fetch groups");
+          setGroups([]);
+        }
+      } catch (error) {
+        console.log(error.response?.data?.message || "An error occurred");
         setGroups([]);
       }
-    } catch (error) {
-      console.log(error.response?.data?.message || "An error occurred");
-      setGroups([]);
-    }
-  };
+    },
+    [API_ENDPOINT]
+  );
   useEffect(() => {
     if (interfaceData) {
       setDepartments(interfaceData.departments || []);

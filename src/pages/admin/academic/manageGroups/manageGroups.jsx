@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "./manageGroups.css";
 import { motion } from "framer-motion";
 import { Plus, Search, Building2, ArrowLeft } from "lucide-react";
@@ -12,8 +12,7 @@ const ManageGroups = () => {
   const [groups, setGroups] = useState([]);
   const [modules, setModules] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-
-  const fetchGroups = async () => {
+  const fetchGroups = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/AcademyGet/GetAllGroups`
@@ -29,9 +28,9 @@ const ManageGroups = () => {
       console.log(error.response?.data?.message || "An error occurred");
       setGroups([]);
     }
-  };
+  }, [API_ENDPOINT]);
 
-  const fetchModules = async () => {
+  const fetchModules = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/AcademyGet/GetAllModules`
@@ -47,7 +46,8 @@ const ManageGroups = () => {
       console.log(error.response?.data?.message || "An error occurred");
       setModules([]);
     }
-  };
+  }, [API_ENDPOINT]);
+
   useEffect(() => {
     fetchGroups();
     fetchModules();

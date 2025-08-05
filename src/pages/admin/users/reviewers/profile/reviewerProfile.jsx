@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Save, ArrowLeft, AlertTriangle, User } from "lucide-react";
@@ -23,38 +23,41 @@ const EditReviewerProfilePage = ({ interface: interfaceData = null }) => {
     staffNo: 0,
   });
 
-  const fetchReviewer = async (id) => {
-    try {
-      console.log("i am passing this userId: " + id + " to the backend.");
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/AdminGetUserProfile/GetReviewerProfile`,
-        {
-          params: { userId: id },
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
+  const fetchReviewer = useCallback(
+    async (id) => {
+      try {
+        console.log("i am passing this userId: " + id + " to the backend.");
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/AdminGetUserProfile/GetReviewerProfile`,
+          {
+            params: { userId: id },
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        if (response?.data?.status) {
+          setUser(response?.data?.reviewer);
+          setFormData({
+            name: response?.data?.reviewer.reviewerName,
+            surname: response?.data?.reviewer.reviewerSurname,
+            email: response?.data?.reviewer.email,
+            contact: response?.data?.reviewer.contacts,
+            department: response?.data?.reviewer.reviewerDepartment || "",
+            staffNo: response?.data?.reviewer.staffNumber,
+          });
+        } else {
+          console.log(response?.data?.message || "Failed to fetch reviewer");
+          setUser(null);
         }
-      );
-      if (response?.data?.status) {
-        setUser(response?.data?.reviewer);
-        setFormData({
-          name: response?.data?.reviewer.reviewerName,
-          surname: response?.data?.reviewer.reviewerSurname,
-          email: response?.data?.reviewer.email,
-          contact: response?.data?.reviewer.contacts,
-          department: response?.data?.reviewer.reviewerDepartment || "",
-          staffNo: response?.data?.reviewer.staffNumber,
-        });
-      } else {
-        console.log(response?.data?.message || "Failed to fetch reviewer");
+      } catch (error) {
+        console.log(error.response?.data?.message || "An error occurred");
         setUser(null);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.log(error.response?.data?.message || "An error occurred");
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [API_ENDPOINT]
+  );
   useEffect(() => {
     if (interfaceData) {
       setUser(interfaceData);

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./viewLecturers.css";
 import { UserPlus, Search, UserRoundPen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,7 @@ const ViewLecturersPage = ({ interface: interfaceData = null }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
-  const fetchLecturers = async () => {
+  const fetchLecturers = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/UserGetters/GetAllLecturers`
@@ -25,7 +25,7 @@ const ViewLecturersPage = ({ interface: interfaceData = null }) => {
       console.error(error.response?.data?.message || "An error occurred");
       setLecturers([]);
     }
-  };
+  }, [API_ENDPOINT]);
   useEffect(() => {
     if (interfaceData) {
       setLecturers(interfaceData);

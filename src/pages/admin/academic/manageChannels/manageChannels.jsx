@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "./manageChannels.css";
 import { motion } from "framer-motion";
 import { Plus, Search, Building2 } from "lucide-react";
@@ -10,8 +10,7 @@ const ManageChannels = () => {
   const API_ENDPOINT = process.env.REACT_APP_API_END_POINT;
   const [channels, setChannels] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-
-  const fetchChannels = async () => {
+  const fetchChannels = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/AcademyGet/GetAllCommunicationChannels`
@@ -27,7 +26,8 @@ const ManageChannels = () => {
       console.log(error.response?.data?.message || "An error occurred");
       setChannels([]);
     }
-  };
+  }, [API_ENDPOINT]);
+
   useEffect(() => {
     fetchChannels();
   }, [fetchChannels]);

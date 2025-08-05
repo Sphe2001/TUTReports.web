@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { Toaster } from "react-hot-toast";
 import "./hodDashPage.css";
@@ -25,7 +25,7 @@ const HodDashPage = () => {
 
   const navigate = useNavigate();
 
-  const getUserDetails = async () => {
+  const getUserDetails = useCallback(async () => {
     try {
       const userRes = await axios.get(
         `${API_ENDPOINT}/api/UserGetters/GetUserDetails`,
@@ -45,9 +45,9 @@ const HodDashPage = () => {
       console.error("Error fetching userDetails:", error);
       setUserFullName("");
     }
-  };
+  }, [API_ENDPOINT]);
 
-  const getStats = async () => {
+  const getStats = useCallback(async () => {
     try {
       const totalReports = await axios.get(
         `${API_ENDPOINT}/api/stats/reviewer/GetTotalReportsCount`,
@@ -87,9 +87,9 @@ const HodDashPage = () => {
     } catch (error) {
       console.error("Error fetching stats:", error);
     }
-  };
+  }, [API_ENDPOINT]);
 
-  const getRecentReports = async () => {
+  const getRecentReports = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/ReviewerReports/GetRecentReports`,
@@ -105,7 +105,7 @@ const HodDashPage = () => {
     } catch (error) {
       console.error("Error fetching reports:", error);
     }
-  };
+  }, [API_ENDPOINT]);
   useEffect(() => {
     getUserDetails();
     getStats();

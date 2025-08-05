@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./manageUserPage.css";
 import { UserPlus, Search, Edit, ArrowLeft } from "lucide-react";
 import axios from "axios";
@@ -24,7 +24,7 @@ const ManageUserPage = ({ interface: interfaceData = null }) => {
     setToggleStates(newStates);
   };
 
-  const fetchUserAccounts = async () => {
+  const fetchUserAccounts = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/UserGetters/GetAllUserAccounts`
@@ -41,7 +41,7 @@ const ManageUserPage = ({ interface: interfaceData = null }) => {
       console.log(error.response?.data?.message || "An error occurred");
       setUserAccounts([]);
     }
-  };
+  }, [API_ENDPOINT]);
 
   useEffect(() => {
     if (interfaceData) {

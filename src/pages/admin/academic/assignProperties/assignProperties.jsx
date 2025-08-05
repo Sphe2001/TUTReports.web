@@ -26,28 +26,28 @@ const AssignAcademicProperties = () => {
   const [roleFilter, setRoleFilter] = useState("all");
   const [selectedUser, setSelectedUser] = useState({});
 
-  const fetchUsers = async () => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/UserGetters/GetAllLecturersAndReviewers`
-      );
-      if (response?.data?.status) {
-        setUsers(response.data.users);
-        setLoading(false);
-      } else {
-        console.log(response.data.message);
-        setUsers(null);
-      }
-    } catch (error) {
-      console.log("An error occurred. " + error);
-      setUsers(null);
-    } finally {
-      setLoading(false);
-    }
-  };
   useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/UserGetters/GetAllLecturersAndReviewers`
+        );
+        if (response?.data?.status) {
+          setUsers(response.data.users);
+          setLoading(false);
+        } else {
+          console.log(response.data.message);
+          setUsers(null);
+        }
+      } catch (error) {
+        console.log("An error occurred. " + error);
+        setUsers(null);
+      } finally {
+        setLoading(false);
+      }
+    };
     fetchUsers();
-  }, [fetchUsers]);
+  }, []);
   let filteredUsers;
   if (users) {
     filteredUsers = users.filter((user) => {

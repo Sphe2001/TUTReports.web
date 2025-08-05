@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Filter } from "lucide-react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,7 @@ const NotificationPage = () => {
   let searchTerm;
   const [notifications, setNotifications] = useState([]);
 
-  const fetchUserRole = async () => {
+  const fetchUserRole = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/UserGetters/GetUserDetails`,
@@ -32,9 +32,9 @@ const NotificationPage = () => {
     } catch (error) {
       console.error("Failed to fetch user role:", error);
     }
-  };
+  }, [API_ENDPOINT]);
 
-  const fetchNotificationsFromAPI = async () => {
+  const fetchNotificationsFromAPI = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/Notifications/GetNotifications`,
@@ -69,7 +69,7 @@ const NotificationPage = () => {
       console.error("Failed to fetch notifications:", err);
       setNotifications([]);
     }
-  };
+  }, [API_ENDPOINT]);
   useEffect(() => {
     fetchUserRole();
     fetchNotificationsFromAPI();

@@ -211,11 +211,7 @@ const ViewReport = () => {
             <h2>Sessions</h2>
           </div>
           <div className="view-lecturer-report-sessions-grid">
-            {report.sessions.map((session, index) => {
-              const matchingGroup = moduleGroups.find(
-                (group) => Number(group.groupId) === Number(session.groupId)
-              );
-
+            {report.sessions.map((session) => {
               return (
                 <div
                   key={session.sessionId}

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "./manageRoles.css";
 import { motion } from "framer-motion";
 import { Plus, Search, Building2, ArrowLeft } from "lucide-react";
@@ -12,7 +12,7 @@ const ManageRoles = () => {
   const [roles, setRoles] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
 
-  const fetchRoles = async () => {
+  const fetchRoles = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/AcademyGet/GetAllRoles`
@@ -28,7 +28,7 @@ const ManageRoles = () => {
       console.log(error.response?.data?.message || "An error occurred");
       setRoles([]);
     }
-  };
+  }, [API_ENDPOINT]);
   useEffect(() => {
     fetchRoles();
   }, [fetchRoles]);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import {
@@ -103,27 +103,30 @@ const ViewReportPage = () => {
     }
   };
 
-  const fetchReport = async (reportId) => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/ReviewerReports/ViewReport?reportId=${reportId}`,
-        {
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+  const fetchReport = useCallback(
+    async (reportId) => {
+      try {
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/ReviewerReports/ViewReport?reportId=${reportId}`,
+          {
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
 
-      if (response?.data?.status) {
-        setReport(response.data.report);
-        console.log(response.data.report);
-        console.log("the report " + report);
+        if (response?.data?.status) {
+          setReport(response.data.report);
+          console.log(response.data.report);
+          console.log("the report " + report);
+        }
+      } catch (error) {
+        console.error("Failed to fetch report:", error);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("Failed to fetch report:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [API_ENDPOINT]
+  );
   useEffect(() => {
     if (reportId) fetchReport(reportId);
   }, [reportId, fetchReport]);

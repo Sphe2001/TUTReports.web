@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Save, ArrowLeft, AlertTriangle, User as UserIcon } from "lucide-react";
+import { Save, ArrowLeft, AlertTriangle, User } from "lucide-react";
 import "./lecturerProfile.css";
 import axios from "axios";
 import ProfileSideInfo from "../../../../../components/admin/editUserProfile/profileSideInfo/profileSideInfo";
@@ -22,37 +22,40 @@ const EditLecturerProfilePage = ({ interface: interfaceData = null }) => {
     staffNo: 0,
   });
 
-  const fetchLecturer = async (id) => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/AdminGetUserProfile/GetLecturerProfile`,
-        {
-          params: { userId: id },
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
+  const fetchLecturer = useCallback(
+    async (id) => {
+      try {
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/AdminGetUserProfile/GetLecturerProfile`,
+          {
+            params: { userId: id },
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        if (response?.data?.status) {
+          setUser(response?.data?.lecturer);
+          setFormData({
+            name: response?.data?.lecturer.lecturerName,
+            surname: response?.data?.lecturer.lecturerSurname,
+            email: response?.data?.lecturer.email,
+            contact: response?.data?.lecturer.contacts,
+            staffNo: response?.data?.lecturer.staffNumber,
+          });
+          setDepartments(response?.data?.lecturer.lecturerDepartments);
+        } else {
+          console.log(response?.data?.message || "Failed to fetch lecturer");
+          setUser(null);
         }
-      );
-      if (response?.data?.status) {
-        setUser(response?.data?.lecturer);
-        setFormData({
-          name: response?.data?.lecturer.lecturerName,
-          surname: response?.data?.lecturer.lecturerSurname,
-          email: response?.data?.lecturer.email,
-          contact: response?.data?.lecturer.contacts,
-          staffNo: response?.data?.lecturer.staffNumber,
-        });
-        setDepartments(response?.data?.lecturer.lecturerDepartments);
-      } else {
-        console.log(response?.data?.message || "Failed to fetch lecturer");
+      } catch (error) {
+        console.log(error.response?.data?.message || "An error occurred");
         setUser(null);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.log(error.response?.data?.message || "An error occurred");
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [API_ENDPOINT]
+  );
   useEffect(() => {
     if (interfaceData) {
       setUser(interfaceData);

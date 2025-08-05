@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./viewReviewers.css";
 import { UserPlus, Search, UserRoundPen } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,7 @@ const ViewReviewersPage = ({ interface: interfaceData = null }) => {
   const [departmentFilter, setDepartmentFilter] = useState("all");
   const navigate = useNavigate();
 
-  const fetchReviewers = async () => {
+  const fetchReviewers = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/UserGetters/GetAllReviewers`
@@ -29,7 +29,7 @@ const ViewReviewersPage = ({ interface: interfaceData = null }) => {
       console.log(error.response?.data?.message || "An error occurred");
       setReviewers([]);
     }
-  };
+  }, [API_ENDPOINT]);
   useEffect(() => {
     if (interfaceData) {
       setReviewers(interfaceData);

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Search, ArrowLeft } from "lucide-react";
 import "./reportHistory.css";
 import axios from "axios";
@@ -13,7 +13,7 @@ const ReportHistory = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
 
-  const fetchReports = async () => {
+  const fetchReports = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/LecturerReports/GetMyReportHistory`,
@@ -32,7 +32,7 @@ const ReportHistory = () => {
     } catch (error) {
       console.error("An error occurred", error);
     }
-  };
+  }, [API_ENDPOINT]);
   useEffect(() => {
     fetchReports();
   }, [fetchReports]);

@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { Save, ArrowLeft, AlertTriangle, User } from "lucide-react";
+import { Save, ArrowLeft, AlertTriangle } from "lucide-react";
 import "./adminProfile.css";
 import axios from "axios";
 import ProfileSideInfo from "../../../../../components/admin/editUserProfile/profileSideInfo/profileSideInfo";
@@ -21,36 +21,39 @@ const EditAdminProfilePage = ({ interface: interfaceData = null }) => {
     staffNo: 0,
   });
 
-  const fetchAdmin = async (id) => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/AdminGetUserProfile/GetAdminProfile`,
-        {
-          params: { userId: id },
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
+  const fetchAdmin = useCallback(
+    async (id) => {
+      try {
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/AdminGetUserProfile/GetAdminProfile`,
+          {
+            params: { userId: id },
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        if (response?.data?.status) {
+          setUser(response?.data?.admin);
+          setFormData({
+            name: response?.data?.admin.adminName,
+            surname: response?.data?.admin.adminSurname,
+            email: response?.data?.admin.email,
+            contact: response?.data?.admin.contacts,
+            staffNo: response?.data?.admin.staffNo,
+          });
+        } else {
+          console.log(response?.data?.message || "Failed to fetch admin");
+          setUser(null);
         }
-      );
-      if (response?.data?.status) {
-        setUser(response?.data?.admin);
-        setFormData({
-          name: response?.data?.admin.adminName,
-          surname: response?.data?.admin.adminSurname,
-          email: response?.data?.admin.email,
-          contact: response?.data?.admin.contacts,
-          staffNo: response?.data?.admin.staffNo,
-        });
-      } else {
-        console.log(response?.data?.message || "Failed to fetch admin");
+      } catch (error) {
+        console.log(error.response?.data?.message || "An error occurred");
         setUser(null);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.log(error.response?.data?.message || "An error occurred");
-      setUser(null);
-    } finally {
-      setLoading(false);
-    }
-  };
+    },
+    [API_ENDPOINT]
+  );
   useEffect(() => {
     if (interfaceData) {
       setUser(interfaceData);

@@ -86,7 +86,7 @@ const LecturerSelect = ({ onSelect }) => {
     };
 
     fetchReviewerDepartment();
-  }, []);
+  }, [API_ENDPOINT]);
 
   const handleSelectChange = (e) => {
     const selectedId = e.target.value;

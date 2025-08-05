@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 import axios from "axios";
 
@@ -23,7 +23,7 @@ const LecturerDashboardPage = () => {
   const [deadlines, setDeadlines] = useState([]);
   const [submissionStatus, setSubmissionStatus] = useState([]);
 
-  const getDeadlines = async () => {
+  const getDeadlines = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/Deadlines/GetDeadlines`,
@@ -41,7 +41,7 @@ const LecturerDashboardPage = () => {
     } catch (error) {
       console.error("Failed to fetch deadlines:", error);
     }
-  };
+  }, [API_ENDPOINT]);
   useEffect(() => {
     axios
       .get(`${API_ENDPOINT}/api/UserGetters/GetUserDetails`, {
@@ -155,7 +155,7 @@ const LecturerDashboardPage = () => {
       });
 
     getDeadlines();
-  }, [getDeadlines]);
+  }, [getDeadlines, API_ENDPOINT]);
   const mergedDeadlines = deadlines.map((dl) => {
     const submission = submissionStatus.find(
       (s) => s.moduleCode === dl.moduleCode

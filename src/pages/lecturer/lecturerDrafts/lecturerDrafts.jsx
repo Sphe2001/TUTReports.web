@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import "./lecturerDrafts.css";
 
@@ -13,7 +13,7 @@ const LecturerDraftsPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [timeRange, setTimeRange] = useState("all");
 
-  const fetchDraftsAndDetails = async () => {
+  const fetchDraftsAndDetails = useCallback(async () => {
     try {
       const draftsResponse = await axios.get(
         `${API_ENDPOINT}/api/LecturerReports/GetMyDraftsList`,
@@ -34,7 +34,7 @@ const LecturerDraftsPage = () => {
       console.log("An error occurred " + error);
       setDrafts([]);
     }
-  };
+  }, [API_ENDPOINT]);
 
   useEffect(() => {
     fetchDraftsAndDetails();

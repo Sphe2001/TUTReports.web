@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import EditReportForm from "../../../components/lecturer/editReportForm/editReportForm";
@@ -155,25 +155,28 @@ const EditReportPage = () => {
       .catch(() => setLoading(false));
   }, [reportId, API_ENDPOINT]);
 
-  const getModuleGroups = async (moduleId) => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/LecturerAcademy/GetMyModuleGroups`,
-        {
-          params: { moduleId },
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
+  const getModuleGroups = useCallback(
+    async (moduleId) => {
+      try {
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/LecturerAcademy/GetMyModuleGroups`,
+          {
+            params: { moduleId },
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        if (response?.data?.status) {
+          setGroups(response.data.groups);
+        } else {
+          setGroups([]);
         }
-      );
-      if (response?.data?.status) {
-        setGroups(response.data.groups);
-      } else {
+      } catch (error) {
         setGroups([]);
       }
-    } catch (error) {
-      setGroups([]);
-    }
-  };
+    },
+    [API_ENDPOINT]
+  );
 
   function parseFormattedDate(dateStr) {
     if (!dateStr) return "";
@@ -206,7 +209,7 @@ const EditReportPage = () => {
         getModuleGroups(selectedModule.moduleId || selectedModule.moduleID);
       }
     }
-  }, [modules, form.module, form.moduleCode]);
+  }, [modules, form.module, form.moduleCode, getModuleGroups]);
 
   // Prepare props for EditReportForm
   const steps = [

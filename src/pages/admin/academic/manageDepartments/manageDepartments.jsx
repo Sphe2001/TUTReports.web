@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import "./manageDepartments.css";
 import { motion } from "framer-motion";
 import { Plus, Search, Building2, ArrowLeft } from "lucide-react";
@@ -11,8 +11,7 @@ const ManageDepartments = () => {
   const API_ENDPOINT = process.env.REACT_APP_API_END_POINT;
   const [departments, setDepartments] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-
-  const fetchDepartments = async () => {
+  const fetchDepartments = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/AcademyGet/GetAllDepartments`
@@ -28,7 +27,8 @@ const ManageDepartments = () => {
       console.log(error.response?.data?.message || "An error occurred");
       setDepartments([]);
     }
-  };
+  }, [API_ENDPOINT]);
+
   useEffect(() => {
     fetchDepartments();
   }, [fetchDepartments]);

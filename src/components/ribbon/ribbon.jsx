@@ -28,84 +28,83 @@ export default function Ribbon({ interface: interfaceData = null }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const fetchUserDetails = async () => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/UserGetters/GetUserDetails`,
-        {
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      if (response?.data?.status) {
-        setName(response.data.name);
-        setSurname(response.data.surname);
-        setUserRole(response.data.role);
-        setUserRole(response.data.role.toUpperCase());
-      }
-    } catch {
-      setName("Name");
-      setSurname("Surname");
-    }
-  };
-
-  const getProfilePicture = async () => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/UserProfile/ViewProfilePicture`,
-        {
-          withCredentials: true,
-          responseType: "blob",
-        }
-      );
-      const imageUrl = URL.createObjectURL(response.data);
-      setProfile(imageUrl);
-    } catch {
-      setProfile(null);
-    }
-  };
-
-  const fetchNotificationsPreview = async () => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/Notifications/GetNotifications`,
-        {
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      let list = [];
-
-      if (response.data?.status && Array.isArray(response.data.list)) {
-        list = response.data.list.filter((n) => !n.isViewedStatus);
-        setUnreadCount(response.data?.unreadCount || 0);
-      } else if (Array.isArray(response.data.notifications)) {
-        list = response.data.notifications.filter((n) => !n.isViewedStatus);
-        setUnreadCount(response.data?.unreadCount || 0);
-      } else if (Array.isArray(response.data)) {
-        list = response.data.filter((n) => !n.isViewedStatus);
-        setUnreadCount(response.data?.unreadCount || 0);
-      }
-
-      // Deduplicate by notificationId
-      const unique = [];
-      const seen = new Set();
-      for (const n of list) {
-        if (!seen.has(n.notificationId)) {
-          unique.push(n);
-          seen.add(n.notificationId);
-        }
-      }
-
-      setNotifications(unique.slice(0, 5)); // Only show top 5 unique unread notifications
-    } catch (err) {
-      setNotifications([]);
-      console.log("Failed to fetch notifications:", err);
-    }
-  };
-
   useEffect(() => {
+    const fetchUserDetails = async () => {
+      try {
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/UserGetters/GetUserDetails`,
+          {
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        if (response?.data?.status) {
+          setName(response.data.name);
+          setSurname(response.data.surname);
+          setUserRole(response.data.role);
+          setUserRole(response.data.role.toUpperCase());
+        }
+      } catch {
+        setName("Name");
+        setSurname("Surname");
+      }
+    };
+
+    const getProfilePicture = async () => {
+      try {
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/UserProfile/ViewProfilePicture`,
+          {
+            withCredentials: true,
+            responseType: "blob",
+          }
+        );
+        const imageUrl = URL.createObjectURL(response.data);
+        setProfile(imageUrl);
+      } catch {
+        setProfile(null);
+      }
+    };
+
+    const fetchNotificationsPreview = async () => {
+      try {
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/Notifications/GetNotifications`,
+          {
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+
+        let list = [];
+
+        if (response.data?.status && Array.isArray(response.data.list)) {
+          list = response.data.list.filter((n) => !n.isViewedStatus);
+          setUnreadCount(response.data?.unreadCount || 0);
+        } else if (Array.isArray(response.data.notifications)) {
+          list = response.data.notifications.filter((n) => !n.isViewedStatus);
+          setUnreadCount(response.data?.unreadCount || 0);
+        } else if (Array.isArray(response.data)) {
+          list = response.data.filter((n) => !n.isViewedStatus);
+          setUnreadCount(response.data?.unreadCount || 0);
+        }
+
+        // Deduplicate by notificationId
+        const unique = [];
+        const seen = new Set();
+        for (const n of list) {
+          if (!seen.has(n.notificationId)) {
+            unique.push(n);
+            seen.add(n.notificationId);
+          }
+        }
+
+        setNotifications(unique.slice(0, 5)); // Only show top 5 unique unread notifications
+      } catch (err) {
+        setNotifications([]);
+        console.log("Failed to fetch notifications:", err);
+      }
+    };
     if (interfaceData) {
       setName(interfaceData);
       setSurname(interfaceData);
@@ -115,12 +114,7 @@ export default function Ribbon({ interface: interfaceData = null }) {
       getProfilePicture();
       fetchNotificationsPreview();
     }
-  }, [
-    interfaceData,
-    fetchNotificationsPreview,
-    fetchUserDetails,
-    getProfilePicture,
-  ]);
+  }, [interfaceData]);
 
   const toggleDropdown = () => setDropdownOpen(!dropdownOpen);
 

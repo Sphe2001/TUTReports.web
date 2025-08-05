@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./adminDashboard.css";
 import axios from "axios";
 
@@ -29,6 +29,38 @@ const AdminDashboard = () => {
   const [viewedReports, setViewedReports] = useState(0);
   const [pendingReviewReports, setPendingReviewReports] = useState(0);
   const [totalReports, setTotalReports] = useState(0);
+  const fetchUsersActivities = useCallback(async () => {
+    try {
+      const response = await axios.get(
+        `${API_ENDPOINT}/api/UserGetters/GetAllUserActivities`,
+        {
+          withCredentials: true,
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+      if (response?.data?.status) {
+        const sortedActivities = response.data.userActivities.sort((a, b) => {
+          const dateA = new Date(a.lastLogin);
+          const dateB = new Date(b.lastLogin);
+
+          const isAValid = a.lastLogin !== "0001-01-01T00:00:00";
+          const isBValid = b.lastLogin !== "0001-01-01T00:00:00";
+
+          if (!isAValid && !isBValid) return 0;
+          if (!isAValid) return 1;
+          if (!isBValid) return -1;
+
+          return dateB - dateA;
+        });
+
+        setUsersActivities(sortedActivities);
+      } else {
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      console.error("Error fetching users activities ", error);
+    }
+  }, [API_ENDPOINT]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -85,38 +117,6 @@ const AdminDashboard = () => {
   }, [API_ENDPOINT, fetchUsersActivities]);
 
   const [usersActivities, setUsersActivities] = useState([]);
-  const fetchUsersActivities = async () => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/UserGetters/GetAllUserActivities`,
-        {
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-      if (response?.data?.status) {
-        const sortedActivities = response.data.userActivities.sort((a, b) => {
-          const dateA = new Date(a.lastLogin);
-          const dateB = new Date(b.lastLogin);
-
-          const isAValid = a.lastLogin !== "0001-01-01T00:00:00";
-          const isBValid = b.lastLogin !== "0001-01-01T00:00:00";
-
-          if (!isAValid && !isBValid) return 0;
-          if (!isAValid) return 1;
-          if (!isBValid) return -1;
-
-          return dateB - dateA;
-        });
-
-        setUsersActivities(sortedActivities);
-      } else {
-        console.log(response.data.message);
-      }
-    } catch (error) {
-      console.error("Error fetching users activities ", error);
-    }
-  };
 
   const activePercent =
     stats.totalUsers > 0

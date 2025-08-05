@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import "./weeklyReport.css";
 import toast from "react-hot-toast";
@@ -37,7 +37,7 @@ const WeeklyReport = () => {
     sessions: [],
   });
 
-  const getModules = async () => {
+  const getModules = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/LecturerAcademy/GetMyModules`,
@@ -56,9 +56,9 @@ const WeeklyReport = () => {
       console.error("Error fetching modules:", error);
       toast.error(error.response?.data?.message || "An error occurred");
     }
-  };
+  }, [API_ENDPOINT]);
 
-  const getCommunicationChannel = async () => {
+  const getCommunicationChannel = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/AcademyGet/GetAllCommunicationChannels`,
@@ -77,7 +77,7 @@ const WeeklyReport = () => {
       console.error("Error fetching channels:", error);
       toast.error(error.response?.data?.message || "An error occurred");
     }
-  };
+  }, [API_ENDPOINT]);
   useEffect(() => {
     getModules();
     getCommunicationChannel();

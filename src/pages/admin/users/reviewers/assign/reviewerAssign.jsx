@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import "./reviewerAssign.css";
 
 import { toast } from "react-hot-toast";
@@ -16,48 +16,54 @@ const ReviewerAssignPage = ({ interface: interfaceData = null }) => {
   const [departments, setDepartments] = useState([]);
   const [reviewer, setReviewer] = useState(null);
 
-  const fetchReviewer = async (id) => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/AdminGetUserProfile/GetReviewerProfile`,
-        {
-          params: { userId: id },
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
+  const fetchReviewer = useCallback(
+    async (id) => {
+      try {
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/AdminGetUserProfile/GetReviewerProfile`,
+          {
+            params: { userId: id },
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          }
+        );
+        if (response?.data?.status) {
+          setReviewer(response?.data?.reviewer);
+        } else {
+          console.log(response?.data?.message || "Failed to fetch reviewer");
+          setReviewer(null);
         }
-      );
-      if (response?.data?.status) {
-        setReviewer(response?.data?.reviewer);
-      } else {
-        console.log(response?.data?.message || "Failed to fetch reviewer");
+      } catch (error) {
+        console.log(error.response?.data?.message || "An error occurred");
         setReviewer(null);
       }
-    } catch (error) {
-      console.log(error.response?.data?.message || "An error occurred");
-      setReviewer(null);
-    }
-  };
+    },
+    [API_ENDPOINT]
+  );
   const [profile, setProfile] = useState(null);
-  const getUserProfile = async (id) => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/UserProfile/GetUserProfilePicture`,
-        {
-          params: { userId: id },
-          withCredentials: true,
-          responseType: "blob",
-        }
-      );
-      const imageBlob = response.data;
-      const imageUrl = URL.createObjectURL(imageBlob);
-      setProfile(imageUrl);
-    } catch (error) {
-      console.log(error);
-      setProfile(null);
-    }
-  };
+  const getUserProfile = useCallback(
+    async (id) => {
+      try {
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/UserProfile/GetUserProfilePicture`,
+          {
+            params: { userId: id },
+            withCredentials: true,
+            responseType: "blob",
+          }
+        );
+        const imageBlob = response.data;
+        const imageUrl = URL.createObjectURL(imageBlob);
+        setProfile(imageUrl);
+      } catch (error) {
+        console.log(error);
+        setProfile(null);
+      }
+    },
+    [API_ENDPOINT]
+  );
 
-  const fetchDepartments = async () => {
+  const fetchDepartments = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/AcademyGet/GetAllDepartments`
@@ -73,7 +79,7 @@ const ReviewerAssignPage = ({ interface: interfaceData = null }) => {
       console.log(error.response?.data?.message || "An error occurred");
       setDepartments([]);
     }
-  };
+  }, [API_ENDPOINT]);
   useEffect(() => {
     if (interfaceData) {
       setDepartments(interfaceData);
@@ -86,7 +92,7 @@ const ReviewerAssignPage = ({ interface: interfaceData = null }) => {
       }
     }
     getUserProfile(userId);
-  }, [interfaceData, fetchDepartments, fetchReviewer, userId]);
+  }, [interfaceData, fetchDepartments, fetchReviewer, getUserProfile, userId]);
 
   const handleAssign = async (userId, departmentId) => {
     try {

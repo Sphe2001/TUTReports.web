@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 import { Search, ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -12,7 +12,7 @@ const PendingReports = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [timeRange, setTimeRange] = useState("7d");
 
-  const getPendingReports = async () => {
+  const getPendingReports = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/ReviewerReports/GetPendingReports`,
@@ -34,7 +34,7 @@ const PendingReports = () => {
       setreports([]);
       console.log("An error occurred");
     }
-  };
+  }, [API_ENDPOINT]);
   useEffect(() => {
     getPendingReports();
   }, [getPendingReports]);

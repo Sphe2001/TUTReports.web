@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import "./addUserPage.css";
@@ -32,23 +32,7 @@ const AddUserPage = ({ interface: interfaceData = null }) => {
   const [totalLecturers, setTotalLecturers] = useState(0);
   const [totalReviewers, setTotalReviewers] = useState(0);
 
-  useEffect(() => {
-    if (!interfaceData) {
-      fetchRoles();
-      getTotalLecturers();
-      getTotalReviewers();
-    } else {
-      setRoleOptions(interfaceData);
-    }
-  }, [
-    interfaceData,
-    fetchRoles,
-    getTotalLecturers,
-    getTotalReviewers,
-    setRoleOptions,
-  ]);
-
-  const getTotalLecturers = async () => {
+  const getTotalLecturers = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/stats/system/GetLecturerCount`
@@ -59,8 +43,9 @@ const AddUserPage = ({ interface: interfaceData = null }) => {
     } catch (error) {
       console.log(error);
     }
-  };
-  const getTotalReviewers = async () => {
+  }, [API_ENDPOINT]);
+
+  const getTotalReviewers = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/stats/system/GetReviewerCount`
@@ -71,9 +56,9 @@ const AddUserPage = ({ interface: interfaceData = null }) => {
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [API_ENDPOINT]);
 
-  const fetchRoles = async () => {
+  const fetchRoles = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/AcademyGet/GetAllRoles`
@@ -88,7 +73,16 @@ const AddUserPage = ({ interface: interfaceData = null }) => {
       toast.error("Error fetching roles.");
       setRoleOptions([]);
     }
-  };
+  }, [API_ENDPOINT]);
+  useEffect(() => {
+    if (!interfaceData) {
+      fetchRoles();
+      getTotalLecturers();
+      getTotalReviewers();
+    } else {
+      setRoleOptions(interfaceData);
+    }
+  }, [interfaceData, fetchRoles, getTotalLecturers, getTotalReviewers]);
 
   const isPhoneValid = (phone) => /^\d{10}$/.test(phone);
 
@@ -160,8 +154,6 @@ const AddUserPage = ({ interface: interfaceData = null }) => {
       setLoading(false);
     }
   };
-
-  const [usersFile, setUsersFile] = useState(null);
 
   const openImportUsersModal = async (file) => {
     const formData = new FormData();
@@ -437,63 +429,6 @@ const AddUserPage = ({ interface: interfaceData = null }) => {
             </div>
           </form>
         </motion.div>
-        {/* <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="other-actions-container"
-        >
-          <div className="add-multiple-users-container">
-            <div className="quick-actions-header">Add Multiple Users</div>
-            <div className="add-multiple-users-item">
-              <form onSubmit={handleAddMultUsers}>
-                <input
-                  type="file"
-                  className="upload-users"
-                  onChange={(e) => setUsersFile(e.target.files[0])}
-                  accept=".csv, .xlsx"
-                />
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className="dashboard-add-user-button"
-                >
-                  Add Users
-                </button>
-              </form>
-            </div>
-          </div>
-          <div className="quick-actions-container">
-            <div className="quick-actions-header">Quick Actions</div>
-            <div className="quick-action-item">
-              <div className="quick-action-left" onClick={handleNavigate}>
-                <ShieldUser className="quick-action-icon" />
-                <span>Add New Role</span>
-              </div>
-
-              <ChevronRight className="quick-action-chevron" />
-            </div>
-
-            <div className="quick-action-item">
-              <Link to="/manage-users">
-                <div className="quick-action-left">
-                  <Users className="quick-action-icon" />
-                  <span>Manage Users</span>
-                </div>
-              </Link>
-
-              <ChevronRight className="quick-action-chevron" />
-            </div>
-
-            <div className="quick-action-item">
-              <div className="quick-action-left">
-                <BarChart2 className="quick-action-icon" />
-                <span>Users Activities</span>
-              </div>
-              <ChevronRight className="quick-action-chevron" />
-            </div>
-          </div>
-        </motion.div> */}
       </div>
     </div>
   );

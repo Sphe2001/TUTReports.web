@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -38,96 +38,101 @@ const EditDraft = () => {
   });
 
   //Drafts
-  const getDraft = async (draftId) => {
-    try {
-      const response = await axios.get(
-        `${API_ENDPOINT}/api/LecturerReports/ViewMyDraft`,
-        {
-          params: { draftId: draftId },
-          withCredentials: true,
-          headers: { "Content-Type": "application/json" },
-        },
-        {
-          validateStatus: () => true,
-        }
-      );
-
-      if (response?.data?.status) {
-        const draftModules = response.data.modules || [];
-        const mergedChannelActivities = {};
-        const draftSessions = response.data.sessions || [];
-
-        response.data.channelActivities.forEach(({ channelName, activity }) => {
-          if (mergedChannelActivities[channelName]) {
-            mergedChannelActivities[channelName] += `\n${activity}`;
-          } else {
-            mergedChannelActivities[channelName] = activity;
+  const getDraft = useCallback(
+    async (draftId) => {
+      try {
+        const response = await axios.get(
+          `${API_ENDPOINT}/api/LecturerReports/ViewMyDraft`,
+          {
+            params: { draftId: draftId },
+            withCredentials: true,
+            headers: { "Content-Type": "application/json" },
+          },
+          {
+            validateStatus: () => true,
           }
-        });
-        let channelList = response.data.channelActivities || [];
-        if (Array.isArray(channelList) && channelList.length > 0) {
-          if (typeof channelList[0] === "string") {
-            channelList = channelList.map((name, idx) => ({
-              channelName: name,
-            }));
-          }
-        }
+        );
 
-        const summaries = response.data.channelActivities || {};
-        const normalizedSummaries = {};
-        channelList.forEach((c) => {
-          const channelName = c.channelName;
-          const summaryKey = Object.keys(summaries).find(
-            (k) => k.trim().toLowerCase() === channelName.trim().toLowerCase()
+        if (response?.data?.status) {
+          const draftModules = response.data.modules || [];
+          const mergedChannelActivities = {};
+          const draftSessions = response.data.sessions || [];
+
+          response.data.channelActivities.forEach(
+            ({ channelName, activity }) => {
+              if (mergedChannelActivities[channelName]) {
+                mergedChannelActivities[channelName] += `\n${activity}`;
+              } else {
+                mergedChannelActivities[channelName] = activity;
+              }
+            }
           );
-          normalizedSummaries[channelName] = summaryKey
-            ? summaries[summaryKey]
-            : "";
-        });
+          let channelList = response.data.channelActivities || [];
+          if (Array.isArray(channelList) && channelList.length > 0) {
+            if (typeof channelList[0] === "string") {
+              channelList = channelList.map((name, idx) => ({
+                channelName: name,
+              }));
+            }
+          }
 
-        setReportData({
-          modules: response.data.modules,
-          moduleIds: draftModules.map((m) => m.moduleId),
-          startDate: response.data.startDate,
-          endDate: response.data.endDate,
-          suggestions: response.data.suggestions,
-          challenges: response.data.challenges,
-          channels: channelList,
-          channelActivities: normalizedSummaries,
-          weeklyActivity: response.data.weeklyActivity,
-          sessions: draftSessions.map((s, i) => ({
-            sessionId: s.sessionId,
-            sessionNumber: s.sessionNumber || i + 1,
-            sessionDate: s.sessionDate,
-            numberOfStudents: s.numberOfStudents,
-            groupId: s.group.groupId,
-          })),
-          hasAttendanceRegister: response.data.hasAttendanceRegister,
-          draftAttendanceRegisterFileName:
-            response.data.draftAttendanceRegisterFileName,
-        });
-        const initialSelectedChannels = {};
-        if (
-          response.data.channelActivities &&
-          response.data.channelActivities.length > 0
-        ) {
-          response.data.channelActivities.forEach((ca) => {
-            initialSelectedChannels[ca.channelName] = {
-              show: true,
-              content: ca.activity,
-            };
+          const summaries = response.data.channelActivities || {};
+          const normalizedSummaries = {};
+          channelList.forEach((c) => {
+            const channelName = c.channelName;
+            const summaryKey = Object.keys(summaries).find(
+              (k) => k.trim().toLowerCase() === channelName.trim().toLowerCase()
+            );
+            normalizedSummaries[channelName] = summaryKey
+              ? summaries[summaryKey]
+              : "";
           });
+
+          setReportData({
+            modules: response.data.modules,
+            moduleIds: draftModules.map((m) => m.moduleId),
+            startDate: response.data.startDate,
+            endDate: response.data.endDate,
+            suggestions: response.data.suggestions,
+            challenges: response.data.challenges,
+            channels: channelList,
+            channelActivities: normalizedSummaries,
+            weeklyActivity: response.data.weeklyActivity,
+            sessions: draftSessions.map((s, i) => ({
+              sessionId: s.sessionId,
+              sessionNumber: s.sessionNumber || i + 1,
+              sessionDate: s.sessionDate,
+              numberOfStudents: s.numberOfStudents,
+              groupId: s.group.groupId,
+            })),
+            hasAttendanceRegister: response.data.hasAttendanceRegister,
+            draftAttendanceRegisterFileName:
+              response.data.draftAttendanceRegisterFileName,
+          });
+          const initialSelectedChannels = {};
+          if (
+            response.data.channelActivities &&
+            response.data.channelActivities.length > 0
+          ) {
+            response.data.channelActivities.forEach((ca) => {
+              initialSelectedChannels[ca.channelName] = {
+                show: true,
+                content: ca.activity,
+              };
+            });
+          }
+          setSelectedChannels(initialSelectedChannels);
+          console.log(response.data.message);
+        } else {
+          console.log(response.data.message);
         }
-        setSelectedChannels(initialSelectedChannels);
-        console.log(response.data.message);
-      } else {
-        console.log(response.data.message);
+      } catch (error) {
+        console.log(error.response?.data?.message || "An error occurred.");
       }
-    } catch (error) {
-      console.log(error.response?.data?.message || "An error occurred.");
-    }
-  };
-  const getCommunicationChannel = async () => {
+    },
+    [API_ENDPOINT]
+  );
+  const getCommunicationChannel = useCallback(async () => {
     try {
       const response = await axios.get(
         `${API_ENDPOINT}/api/AcademyGet/GetAllCommunicationChannels`,
@@ -146,7 +151,7 @@ const EditDraft = () => {
       console.error("Error fetching channels:", error);
       toast.error(error.response?.data?.message || "An error occurred");
     }
-  };
+  }, [API_ENDPOINT]);
   useEffect(() => {
     getCommunicationChannel();
     if (draftId) {

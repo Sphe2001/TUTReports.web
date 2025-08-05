@@ -95,7 +95,7 @@ const AdminSettings = () => {
 
     fetchProfile();
     getProfilePicture();
-  }, []);
+  }, [API_ENDPOINT]);
 
   const handleUploadProfilePicture = async (file) => {
     const formData = new FormData();
