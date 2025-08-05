@@ -201,3 +201,15 @@
   color: #9ca3af;
   flex-shrink: 0;
 }
+.sidebar-hamburger-wrapper{
+  display: flex;
+  justify-content: start;
+  margin-left: 6px ;
+
+}
+.sidebar-hamburger{
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+}

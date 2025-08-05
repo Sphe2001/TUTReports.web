@@ -1,6 +1,6 @@
-import React from "react";
+import { useState, useEffect, useMemo } from "react";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   ClipboardPlus,
@@ -9,6 +9,8 @@ import {
   NotepadTextDashed,
   NotepadText,
   LayoutDashboard,
+  Menu,
+  PanelLeftClose,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import "./sidebar.css";
@@ -16,18 +18,51 @@ import Swal from "sweetalert2";
 
 function SideBar({ closeSidebar }) {
   const API_ENDPOINT = process.env.REACT_APP_API_END_POINT;
+  const navigate = useNavigate();
   const location = useLocation();
 
-  const adminNavItems = [
-    { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard/lecturer" },
-    { name: "Create Report", icon: ClipboardPlus, path: "/weekly-report" },
-    { name: "My Reports", icon: NotepadText, path: "/report-history" },
-    { name: "My Drafts", icon: NotepadTextDashed, path: "/lecturer-drafts" },
-  ];
+  const adminNavItems = useMemo(
+    () => [
+      { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard/lecturer" },
+      { name: "Create Report", icon: ClipboardPlus, path: "/weekly-report" },
+      { name: "My Reports", icon: NotepadText, path: "/report-history" },
+      { name: "My Drafts", icon: NotepadTextDashed, path: "/lecturer-drafts" },
+    ],
+    []
+  );
 
-  let navItems = adminNavItems;
+  const [openDropdown, setOpenDropdown] = useState(null);
 
-  const navigate = useNavigate();
+  // Add collapsed state
+  const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+    const currentDropdown = adminNavItems.find(
+      (item) =>
+        item.subItems &&
+        item.subItems.some((sub) => location.pathname.startsWith(sub.path))
+    );
+    if (currentDropdown) {
+      setOpenDropdown(currentDropdown.name);
+    } else {
+      setOpenDropdown(null);
+    }
+  }, [location.pathname, adminNavItems]);
+
+  const handleDropdownClick = (item) => {
+    const isOpen = openDropdown === item.name;
+
+    if (!isOpen) {
+      const inSubItem = item.subItems.some((sub) =>
+        location.pathname.startsWith(sub.path)
+      );
+      if (!inSubItem && item.subItems.length > 0) {
+        navigate(item.subItems[0].path);
+      }
+    }
+
+    setOpenDropdown(isOpen ? null : item.name);
+  };
 
   const handleLogout = () => {
     Swal.fire({
@@ -65,51 +100,119 @@ function SideBar({ closeSidebar }) {
   };
 
   return (
-    <div className="lecturer-sidebar-container">
-      <Toaster />
-      <div className="lecturer-sidebar-main">
-        <nav className="lecturer-sidebar-nav">
-          {navItems.map((item) => {
+    <div className={`sidebar-container${collapsed ? " collapsed" : ""}`}>
+      <div className="sidebar-main">
+        <nav className="sidebar-nav">
+          <div className="sidebar-hamburger-wrapper">
+            <button
+              className="sidebar-hamburger"
+              onClick={() => setCollapsed((prev) => !prev)}
+              aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+            >
+              {collapsed ? (
+                <Menu className="sidebar-icon" size={30} />
+              ) : (
+                <PanelLeftClose className="sidebar-icon" size={30} />
+              )}
+            </button>
+          </div>
+          {adminNavItems.map((item) => {
             const isActive = location.pathname === item.path;
+            const isDropdownOpen = openDropdown === item.name;
+            const hasDropdown = item.subItems && item.subItems.length > 0;
 
             return (
-              <Link
-                key={item.name}
-                to={item.path}
-                className={`lecturer-sidebar-link ${isActive ? "active" : ""}`}
-                onClick={closeSidebar}
-              >
-                <item.icon
-                  className={`lecturer-sidebar-icon ${
-                    isActive ? "active-icon" : ""
-                  }`}
-                />
-                <span>{item.name}</span>
+              <div key={item.name}>
+                {hasDropdown ? (
+                  <div
+                    className={`sidebar-link ${isDropdownOpen ? "active" : ""}`}
+                    onClick={() => handleDropdownClick(item)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <item.icon
+                      className={`sidebar-icon ${
+                        isDropdownOpen ? "active-icon" : ""
+                      }`}
+                    />
+                    {!collapsed && <span>{item.name}</span>}
+                    {isDropdownOpen && (
+                      <motion.div
+                        layoutId="sidebar-indicator"
+                        className="sidebar-indicator"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.2 }}
+                      />
+                    )}
+                  </div>
+                ) : (
+                  <Link
+                    to={item.path}
+                    className={`sidebar-link ${isActive ? "active" : ""}`}
+                    onClick={closeSidebar}
+                  >
+                    <item.icon
+                      className={`sidebar-icon ${
+                        isActive ? "active-icon" : ""
+                      }`}
+                    />
+                    {!collapsed && <span>{item.name}</span>}
+                    {isActive && (
+                      <motion.div
+                        layoutId="sidebar-indicator"
+                        className="sidebar-indicator"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.2 }}
+                      />
+                    )}
+                  </Link>
+                )}
 
-                {isActive && (
+                {hasDropdown && isDropdownOpen && (
                   <motion.div
-                    layoutId="lecturer-sidebar-indicator"
-                    className="lecturer-sidebar-indicator"
+                    layoutId="admin-dropdown-links"
+                    className="admin-dropdown-links"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.2 }}
-                  />
+                  >
+                    {item.subItems.map((sub) => {
+                      const toProp = sub.state
+                        ? { pathname: sub.path, state: sub.state }
+                        : sub.path;
+
+                      return (
+                        <Link
+                          key={sub.name}
+                          to={toProp}
+                          className={`admin-dropdown-link-item ${
+                            location.pathname === sub.path ? "active-blue" : ""
+                          }`}
+                          onClick={closeSidebar}
+                        >
+                          {sub.name}
+                        </Link>
+                      );
+                    })}
+                  </motion.div>
                 )}
-              </Link>
+              </div>
             );
           })}
         </nav>
       </div>
 
-      <div className="lecturer-sidebar-footer">
-        <div className="lecturer-sidebar-actions">
-          <Link to="/lecture/settings" className="action-link">
+      <div className="sidebar-footer">
+        <div className="sidebar-actions">
+          <Link to="/lecture/settings" className="admin-action-link">
             <Settings className="action-icon" />
-            Settings
+            {!collapsed && "Settings"}
           </Link>
-          <button className="action-link" onClick={handleLogout}>
+
+          <button className="admin-action-link" onClick={handleLogout}>
             <LogOut className="action-icon" />
-            Sign out
+            {!collapsed && "Sign out"}
           </button>
         </div>
       </div>

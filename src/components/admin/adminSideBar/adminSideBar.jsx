@@ -12,7 +12,7 @@ import {
   UserCog,
   LayoutDashboard,
   Menu,
-  SquareMenu,
+  PanelLeftClose,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import axios from "axios";
@@ -128,18 +128,21 @@ function AdminSideBar({ closeSidebar }) {
 
   return (
     <div className={`sidebar-container${collapsed ? " collapsed" : ""}`}>
-      {/* Hamburger/Menu Icon for collapsing/expanding */}
-      <div className="sidebar-hamburger-wrapper">
-        <button
-          className="sidebar-hamburger"
-          onClick={() => setCollapsed((prev) => !prev)}
-          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-        >
-          {collapsed ? <SquareMenu size={30} /> : <Menu size={30} />}
-        </button>
-      </div>
       <div className="sidebar-main">
         <nav className="sidebar-nav">
+          <div className="sidebar-hamburger-wrapper">
+            <button
+              className="sidebar-hamburger"
+              onClick={() => setCollapsed((prev) => !prev)}
+              aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+            >
+              {collapsed ? (
+                <Menu className="sidebar-icon" size={30} />
+              ) : (
+                <PanelLeftClose className="sidebar-icon" size={30} />
+              )}
+            </button>
+          </div>
           {adminNavItems.map((item) => {
             const isActive = location.pathname === item.path;
             const isDropdownOpen = openDropdown === item.name;
