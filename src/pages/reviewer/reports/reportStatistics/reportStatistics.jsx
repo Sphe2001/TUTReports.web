@@ -39,77 +39,8 @@ const barColors = [
   "#14b8a6",
 ];
 
-const LecturerSelect = ({ onSelect }) => {
-  const API_ENDPOINT = process.env.REACT_APP_API_END_POINT;
-  const [lecturers, setLecturers] = useState([]);
-  const [selectedLecturerId, setSelectedLecturerId] = useState("");
-
-  useEffect(() => {
-    const fetchReviewerDepartment = async () => {
-      try {
-        const response = await axios.get(
-          `${API_ENDPOINT}/api/UserGetters/GetAllReviewers`,
-          {
-            withCredentials: true,
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-        if (response?.data?.status) {
-          const reviewerDepartment = response.data.reviewerDepartment;
-
-          fetchDepartmentLecturers(reviewerDepartment);
-        }
-      } catch (err) {
-        console.log(
-          err.response?.data?.message || "Error loading reviewer department"
-        );
-      }
-    };
-
-    const fetchDepartmentLecturers = async (department) => {
-      try {
-        const response = await axios.get(
-          `${API_ENDPOINT}/api/UserGetters/GetDepartmentLecturers?department=${department}`,
-          {
-            withCredentials: true,
-            headers: { "Content-Type": "application/json" },
-          }
-        );
-        if (response?.data?.status) {
-          setLecturers(response.data.lecturers);
-        }
-      } catch (err) {
-        console.log(
-          err.response?.data?.message || "Error loading department lecturers"
-        );
-      }
-    };
-
-    fetchReviewerDepartment();
-  }, [API_ENDPOINT]);
-
-  const handleSelectChange = (e) => {
-    const selectedId = e.target.value;
-    setSelectedLecturerId(selectedId);
-    onSelect(selectedId);
-  };
-
-  return (
-    <div className="custom-dropdown">
-      <span className="status-dot green"></span>
-      <select value={selectedLecturerId} onChange={handleSelectChange}>
-        <option value="">Select A Lecturer</option>
-        {lecturers.map((lect) => (
-          <option key={lect.userId} value={lect.userId}>
-            {lect.lecturerName} {lect.lecturerSurname}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-};
-
 const ReportStatistics = () => {
+  const API_ENDPOINT = process.env.REACT_APP_API_END_POINT;
   const [currentDateTime, setCurrentDateTime] = useState("");
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -149,6 +80,74 @@ const ReportStatistics = () => {
     "#607d8b", // grey-blue
     "#795548", // brown
   ];
+  const LecturerSelect = ({ onSelect }) => {
+    const [lecturers, setLecturers] = useState([]);
+    const [selectedLecturerId, setSelectedLecturerId] = useState("");
+
+    useEffect(() => {
+      const fetchReviewerDepartment = async () => {
+        try {
+          const response = await axios.get(
+            `${API_ENDPOINT}/api/UserGetters/GetAllReviewers`,
+            {
+              withCredentials: true,
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+          if (response?.data?.status) {
+            const reviewerDepartment = response.data.reviewerDepartment;
+
+            fetchDepartmentLecturers(reviewerDepartment);
+          }
+        } catch (err) {
+          console.log(
+            err.response?.data?.message || "Error loading reviewer department"
+          );
+        }
+      };
+
+      const fetchDepartmentLecturers = async (department) => {
+        try {
+          const response = await axios.get(
+            `${API_ENDPOINT}/api/UserGetters/GetDepartmentLecturers?department=${department}`,
+            {
+              withCredentials: true,
+              headers: { "Content-Type": "application/json" },
+            }
+          );
+          if (response?.data?.status) {
+            setLecturers(response.data.lecturers);
+          }
+        } catch (err) {
+          console.log(
+            err.response?.data?.message || "Error loading department lecturers"
+          );
+        }
+      };
+
+      fetchReviewerDepartment();
+    }, [API_ENDPOINT]);
+
+    const handleSelectChange = (e) => {
+      const selectedId = e.target.value;
+      setSelectedLecturerId(selectedId);
+      onSelect(selectedId);
+    };
+
+    return (
+      <div className="custom-dropdown">
+        <span className="status-dot green"></span>
+        <select value={selectedLecturerId} onChange={handleSelectChange}>
+          <option value="">Select A Lecturer</option>
+          {lecturers.map((lect) => (
+            <option key={lect.userId} value={lect.userId}>
+              {lect.lecturerName} {lect.lecturerSurname}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  };
 
   const fetchWithToast = async (url, setter, label, valueKey = "data") => {
     try {
