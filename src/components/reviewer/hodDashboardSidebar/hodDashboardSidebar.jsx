@@ -62,7 +62,7 @@ const HodDashboardSidebar = ({ closeSidebar }) => {
     } else {
       setOpenDropdown(null);
     }
-  }, [location.pathname]);
+  }, [location.pathname, adminNavItems]);
 
   const handleDropdownClick = (item) => {
     const isOpen = openDropdown === item.name;

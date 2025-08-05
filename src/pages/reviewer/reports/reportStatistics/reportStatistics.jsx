@@ -126,7 +126,7 @@ const ReportStatistics = () => {
       };
 
       fetchReviewerDepartment();
-    }, [API_ENDPOINT]);
+    }, []);
 
     const handleSelectChange = (e) => {
       const selectedId = e.target.value;
@@ -533,7 +533,13 @@ const ReportStatistics = () => {
     };
 
     fetchStats();
-  }, [totalReports, missedReports, unreviewedReports, reviewedReports]);
+  }, [
+    totalReports,
+    missedReports,
+    unreviewedReports,
+    reviewedReports,
+    API_ENDPOINT,
+  ]);
 
   const renderKeyLegend = (labels, colors) => (
     <div className="report-key">
