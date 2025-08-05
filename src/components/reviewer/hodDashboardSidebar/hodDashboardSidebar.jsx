@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   BarChart2,
@@ -22,31 +22,34 @@ const HodDashboardSidebar = ({ closeSidebar }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const adminNavItems = [
-    { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard/reviewer" },
-    {
-      name: "All Reports",
-      icon: LibraryBig,
-      path: "/view-reports",
-    },
+  const adminNavItems = useMemo(
+    () => [
+      { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard/reviewer" },
+      {
+        name: "All Reports",
+        icon: LibraryBig,
+        path: "/view-reports",
+      },
 
-    {
-      name: "Pending Reports",
-      icon: BookText,
-      path: "/pending-reports",
-    },
+      {
+        name: "Pending Reports",
+        icon: BookText,
+        path: "/pending-reports",
+      },
 
-    {
-      name: "Reviewed Reports",
-      icon: BookOpenCheck,
-      path: "/reviewed-reports",
-    },
-    {
-      name: "Report Statistics",
-      icon: BarChart2,
-      path: "/report-stats",
-    },
-  ];
+      {
+        name: "Reviewed Reports",
+        icon: BookOpenCheck,
+        path: "/reviewed-reports",
+      },
+      {
+        name: "Report Statistics",
+        icon: BarChart2,
+        path: "/report-stats",
+      },
+    ],
+    []
+  );
 
   const [openDropdown, setOpenDropdown] = useState(null);
   const [collapsed, setCollapsed] = useState(false);
